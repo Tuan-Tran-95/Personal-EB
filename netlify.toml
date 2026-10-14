@@ -1,0 +1,42 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/tran anh tuan/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/Tran Anh Tuan/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/tran%20anh%20tuan/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/Tran%20Anh%20Tuan/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/tran anh tuan"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/Tran Anh Tuan"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/tran%20anh%20tuan"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/Tran%20Anh%20Tuan"
+  to = "/"
+  status = 301

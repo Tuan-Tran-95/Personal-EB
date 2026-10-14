@@ -1,0 +1,1547 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tran Anh Tuan</title>
+
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { DEFAULT:'#0B1210', panel:'#0F1512', card:'#131C17' },
+          forest: { DEFAULT:'#2F8F5B', light:'#56C98A', dark:'#1C5E3C', 50:'#E9F6EF' }
+        },
+        fontFamily: {
+          sans: ['"Be Vietnam Pro"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{ color-scheme:dark; }
+  body{ background:#0B1210; color:#E7ECE8; font-family:'Be Vietnam Pro',sans-serif; }
+  ::selection{ background:#2F8F5B; color:#0B1210; }
+  .font-mono{ font-family:'IBM Plex Mono',monospace; }
+  [hidden]{ display:none!important; }
+
+  /* ---- timeline rail ---- */
+  .tl-rail{ position:relative; }
+  .tl-rail::before{
+    content:"";
+    position:absolute; left:15px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(180deg, rgba(86,201,138,0.55), rgba(86,201,138,0.08));
+  }
+  .tl-dot{
+    position:absolute; left:8px; top:6px; width:16px; height:16px; border-radius:999px;
+    background:#0F1512; border:2px solid #56C98A;
+  }
+
+  /* ---- bar chart (pure CSS) ---- */
+  .bar-track{ display:flex; align-items:flex-end; gap:18px; height:160px; }
+  .bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; min-width:0; }
+  .bar-fill{
+    width:100%; max-width:46px; border-radius:7px 7px 2px 2px;
+    background:linear-gradient(180deg, #56C98A 0%, #1C5E3C 100%);
+    box-shadow:0 0 0 1px rgba(86,201,138,0.25) inset;
+  }
+
+  /* ---- donut chart (pure CSS conic-gradient) ---- */
+  .donut{
+    width:148px; height:148px; border-radius:999px;
+    background:conic-gradient(#56C98A calc(var(--pct) * 1%), rgba(86,201,138,0.12) 0);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .donut-hole{
+    width:106px; height:106px; border-radius:999px; background:#131C17;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    border:1px solid rgba(86,201,138,0.18);
+  }
+
+  .marquee-track{ display:flex; width:max-content; animation:scroll 30s linear infinite; }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
+
+  /* ---- card hover / active feedback ---- */
+  .card{ transition:background-color 200ms ease, border-color 200ms ease; }
+  .card:hover{ background-color:#182019; }
+  .card:active{ background-color:#0C100D; }
+
+  /* ---- filter chips ---- */
+  .chip{
+    padding:7px 16px; border-radius:999px; font-family:'IBM Plex Mono',monospace; font-size:0.78rem;
+    background:#1B2420; color:#E7ECE8; border:1px solid rgba(255,255,255,0.14);
+    cursor:pointer; transition:background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    line-height:1;
+  }
+  .chip:hover{ background-color:#232F28; }
+  .chip.chip-active{ background-color:#56C98A; color:#0B1210; border-color:#56C98A; font-weight:600; }
+
+  /* ---- toolkit rows / coming soon / comparison bars ---- */
+  .cmp-bar-fill{ height:100%; border-radius:6px; transition:width 500ms ease; }
+  input[type="number"]::-webkit-inner-spin-button{ opacity:1; }
+
+    /* ---- offer comparison form ---- */
+    .fld{width:100%;background:rgba(11,18,16,.6);border:1px solid rgba(255,255,255,.1);border-radius:.6rem;padding:.5rem .7rem;font-size:.875rem;color:#E5E7EB;text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace;color-scheme:dark;transition:border-color .2s;}
+    select.fld{font-family:inherit;text-align:left;}
+    .fld:focus{outline:none;}
+    .fld-a:focus{border-color:#56C98A;}
+    .fld-b:focus{border-color:#7FB0F0;}
+    .fld::placeholder{color:#4B5563;}
+    .hdr-in{width:100%;background:transparent;border:0;border-bottom:1px solid transparent;font-weight:600;font-size:.95rem;padding:.15rem 0;}
+    .hdr-in:focus{outline:none;border-bottom-color:currentColor;}
+    .lk-wrap{display:flex;gap:.3rem;}
+    .lk{flex:1;height:2.25rem;border-radius:.5rem;background:rgba(255,255,255,.06);color:#9CA3AF;font-family:'IBM Plex Mono',monospace;font-size:.85rem;font-weight:600;transition:background-color .2s,color .2s;}
+    .lk:hover{background:rgba(255,255,255,.12);}
+    .lk:active{background:rgba(255,255,255,.03);}
+    .lk-a.on{background:#56C98A;color:#000;}
+    .lk-b.on{background:#7FB0F0;color:#000;}
+    .row-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;}
+    .row-grid > .c-label,.row-grid > .c-var{grid-column:span 2;}
+    @media (min-width:768px){
+      .row-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr);align-items:center;}
+      .row-grid > .c-label,.row-grid > .c-var{grid-column:auto;}
+      .row-grid > .c-var{text-align:right;}
+    }
+    .c-a{border-left:1px solid rgba(255,255,255,.14);padding-left:.75rem;}
+    @media (min-width:768px){
+      .row-grid > .c-a{margin:calc(var(--py,.625rem) * -1) 0 calc(var(--py,.625rem) * -1) -.375rem;padding-top:var(--py,.625rem);padding-bottom:var(--py,.625rem);}
+    }
+    .acc-btn .chev{transition:transform .2s;}
+    .acc-btn[aria-expanded="true"] .chev{transform:rotate(90deg);}
+    .gal-tab{color:#9CA3AF;background:rgba(255,255,255,.04);}
+    .gal-tab:hover{background:rgba(255,255,255,.1);}
+    .gal-tab.on{background:#56C98A;color:#000;border-color:#56C98A;}
+    .pair-2{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+    .stack-2{display:grid;gap:.4rem;}
+</style>
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-40 backdrop-blur bg-ink/85 border-b border-white/5" style="padding-top:env(safe-area-inset-top,0px)">
+  <div class="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between gap-4 flex-wrap">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center text-forest-light">
+        <i data-lucide="terminal-square" class="w-4.5 h-4.5" style="width:18px;height:18px"></i>
+      </div>
+      <span class="font-semibold tracking-tight">Tran Anh Tuan</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-1 font-mono text-xs text-gray-400">
+      <a href="#expertise" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="layout-grid" style="width:13px;height:13px"></i>
+        <span class="en">Expertise</span><span class="vi" hidden>Năng lực</span>
+      </a>
+      <a href="#work" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="bar-chart-3" style="width:13px;height:13px"></i>
+        <span class="en">Work</span><span class="vi" hidden>Thành tích</span>
+      </a>
+      <a href="#experience" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="git-commit-vertical" style="width:13px;height:13px"></i>
+        <span class="en">Experience</span><span class="vi" hidden>Kinh nghiệm</span>
+      </a>
+      <a href="#tools" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="wrench" style="width:13px;height:13px"></i>
+        <span class="en">Tools</span><span class="vi" hidden>Công cụ</span>
+      </a>
+      <a href="#toolkit" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="layout-list" style="width:13px;height:13px"></i>
+        <span class="en">Toolkit</span><span class="vi" hidden>Tiện ích</span>
+      </a>
+      <a href="#projects" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="folder-kanban" style="width:13px;height:13px"></i>
+        <span class="en">Projects</span><span class="vi" hidden>Dự án</span>
+      </a>
+      <a href="#connect" class="px-3 py-1.5 rounded-md hover:bg-white/5 hover:text-gray-100 flex items-center gap-1.5">
+        <i data-lucide="send" style="width:13px;height:13px"></i>
+        <span class="en">Connect</span><span class="vi" hidden>Liên hệ</span>
+      </a>
+    </nav>
+    <div class="flex border border-white/10 rounded-full overflow-hidden font-mono text-xs flex-shrink-0">
+      <button id="btn-en" type="button" aria-pressed="true" class="px-3 py-1.5">EN</button>
+      <button id="btn-vi" type="button" aria-pressed="false" class="px-3 py-1.5">VI</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="border-b border-white/5 bg-ink-panel/60 overflow-hidden">
+  <div class="marquee-track en font-mono text-sm text-gray-400">
+    <span class="flex items-center gap-6 px-6 py-2.5 whitespace-nowrap">
+      <span class="text-forest-light">&#9679;</span> Workforce Planning
+      <span class="text-forest-light">&#9679;</span> Talent Review &amp; Succession
+      <span class="text-forest-light">&#9679;</span> Internal Mobility
+      <span class="text-forest-light">&#9679;</span> Stakeholder Partnering
+      <span class="text-forest-light">&#9679;</span> OKR / KPI Design
+      <span class="text-forest-light">&#9679;</span> Employer Branding
+      <span class="text-forest-light">&#9679;</span> HR Automation &amp; AI
+    </span>
+    <span class="flex items-center gap-6 px-6 py-2.5 whitespace-nowrap" aria-hidden="true">
+      <span class="text-forest-light">&#9679;</span> Workforce Planning
+      <span class="text-forest-light">&#9679;</span> Talent Review &amp; Succession
+      <span class="text-forest-light">&#9679;</span> Internal Mobility
+      <span class="text-forest-light">&#9679;</span> Stakeholder Partnering
+      <span class="text-forest-light">&#9679;</span> OKR / KPI Design
+      <span class="text-forest-light">&#9679;</span> Employer Branding
+      <span class="text-forest-light">&#9679;</span> HR Automation &amp; AI
+    </span>
+  </div>
+  <div class="marquee-track vi font-mono text-sm text-gray-400" hidden>
+    <span class="flex items-center gap-6 px-6 py-2.5 whitespace-nowrap">
+      <span class="text-forest-light">&#9679;</span> Hoạch định nhân lực
+      <span class="text-forest-light">&#9679;</span> Đánh giá &amp; Kế thừa nhân tài
+      <span class="text-forest-light">&#9679;</span> Luân chuyển nội bộ
+      <span class="text-forest-light">&#9679;</span> Đối tác các bên liên quan
+      <span class="text-forest-light">&#9679;</span> Thiết kế OKR / KPI
+      <span class="text-forest-light">&#9679;</span> Thương hiệu tuyển dụng
+      <span class="text-forest-light">&#9679;</span> Tự động hóa HR &amp; AI
+    </span>
+    <span class="flex items-center gap-6 px-6 py-2.5 whitespace-nowrap" aria-hidden="true">
+      <span class="text-forest-light">&#9679;</span> Hoạch định nhân lực
+      <span class="text-forest-light">&#9679;</span> Đánh giá &amp; Kế thừa nhân tài
+      <span class="text-forest-light">&#9679;</span> Luân chuyển nội bộ
+      <span class="text-forest-light">&#9679;</span> Đối tác các bên liên quan
+      <span class="text-forest-light">&#9679;</span> Thiết kế OKR / KPI
+      <span class="text-forest-light">&#9679;</span> Thương hiệu tuyển dụng
+      <span class="text-forest-light">&#9679;</span> Tự động hóa HR &amp; AI
+    </span>
+  </div>
+</div>
+
+<main class="max-w-5xl mx-auto px-5">
+
+  <!-- ============ HERO CARD ============ -->
+  <section class="mt-8">
+    <div class="card rounded-2xl border border-forest/25 bg-ink-card overflow-hidden shadow-[0_0_40px_-15px_rgba(47,143,91,0.35)]">
+      <div class="relative">
+        <img src="cover.jpg" alt="Tran Anh Tuan" class="w-full h-[150px] sm:h-[210px] object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-card via-ink-card/40 to-transparent"></div>
+      </div>
+      <div class="px-6 sm:px-8 pb-8 -mt-4 relative">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Tran Anh Tuan</h1>
+        <p class="mt-2 font-mono text-sm text-forest-light">
+          <span class="en">Talent Acquisition Business Partner Leader <span class="text-gray-600 mx-1">/</span> HR Business Partner</span>
+          <span class="vi" hidden>Trưởng nhóm Đối tác Kinh doanh Tuyển dụng <span class="text-gray-600 mx-1">/</span> Đối tác Nhân sự</span>
+        </p>
+        <p class="mt-4 max-w-2xl text-gray-400 leading-relaxed en">I partner with business leaders on headcount planning, close hard capacity gaps through internal mobility before external hiring, and build the dashboards and automation that make the numbers honest.</p>
+        <p class="mt-4 max-w-2xl text-gray-400 leading-relaxed vi" hidden>Tôi đồng hành cùng lãnh đạo doanh nghiệp trong hoạch định nhân sự, lấp khoảng trống nhân lực khó bằng luân chuyển nội bộ trước khi tuyển ngoài, và xây dựng dashboard, công cụ tự động hóa để số liệu luôn minh bạch.</p>
+        <p class="mt-4 font-mono text-xs text-gray-500 flex items-center gap-1.5">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i> Ho Chi Minh City, Vietnam
+        </p>
+      </div>
+    </div>
+
+    <!-- stat cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-4">
+        <i data-lucide="calendar-clock" class="text-forest-light" style="width:18px;height:18px"></i>
+        <div class="mt-3 text-2xl font-bold font-mono">7+</div>
+        <div class="text-xs text-gray-500 mt-1"><span class="en">Years in HR &amp; TA</span><span class="vi" hidden>Năm kinh nghiệm HR &amp; TA</span></div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-4">
+        <i data-lucide="handshake" class="text-forest-light" style="width:18px;height:18px"></i>
+        <div class="mt-3 text-2xl font-bold font-mono">93%</div>
+        <div class="text-xs text-gray-500 mt-1"><span class="en">Offer acceptance</span><span class="vi" hidden>Chấp nhận offer</span></div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-4">
+        <i data-lucide="gauge" class="text-forest-light" style="width:18px;height:18px"></i>
+        <div class="mt-3 text-2xl font-bold font-mono">84%</div>
+        <div class="text-xs text-gray-500 mt-1"><span class="en">SLA attainment</span><span class="vi" hidden>Đạt SLA tuyển dụng</span></div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-4">
+        <i data-lucide="zap" class="text-forest-light" style="width:18px;height:18px"></i>
+        <div class="mt-3 text-2xl font-bold font-mono">~80%</div>
+        <div class="text-xs text-gray-500 mt-1"><span class="en">Manual work cut by AI</span><span class="vi" hidden>Việc thủ công giảm nhờ AI</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERTISE (tags) ============ -->
+  <section id="expertise" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="layout-grid" style="width:14px;height:14px"></i>
+      <span class="en">What I do</span><span class="vi" hidden>Chuyên môn</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">Expertise</span><span class="vi" hidden>Năng lực chuyên môn</span></h2>
+
+    <div id="skill-filter" class="flex flex-wrap gap-2 mt-5">
+      <button type="button" data-filter="all" class="chip chip-active">
+        <span class="en">All</span><span class="vi" hidden>Tất cả</span>
+      </button>
+      <button type="button" data-filter="talent" class="chip">
+        <span class="en">Talent &amp; workforce</span><span class="vi" hidden>Nhân tài &amp; nhân lực</span>
+      </button>
+      <button type="button" data-filter="partnering" class="chip">
+        <span class="en">Partnering &amp; ops</span><span class="vi" hidden>Đối tác &amp; vận hành</span>
+      </button>
+      <button type="button" data-filter="data" class="chip">
+        <span class="en">Data &amp; brand</span><span class="vi" hidden>Dữ liệu &amp; thương hiệu</span>
+      </button>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-5 mt-6">
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-5" data-group="talent">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-gray-500 mb-3"><span class="en">Talent &amp; workforce</span><span class="vi" hidden>Nhân tài &amp; nhân lực</span></h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Workforce Planning</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Hoạch định nhân lực</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">9-Box &amp; Succession</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Ma trận 9-Box &amp; Kế thừa</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Internal Mobility</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Luân chuyển nội bộ</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Candidate Assessment</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Đánh giá ứng viên</span>
+        </div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-5" data-group="partnering">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-gray-500 mb-3"><span class="en">Partnering &amp; ops</span><span class="vi" hidden>Đối tác &amp; vận hành</span></h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Business Partnering</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Đối tác kinh doanh</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">OKR / KPI Design</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Thiết kế OKR/KPI</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">VN Labor Law</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Luật lao động VN</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Team Leadership</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Lãnh đạo đội nhóm</span>
+        </div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-5" data-group="data">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-gray-500 mb-3"><span class="en">Data &amp; brand</span><span class="vi" hidden>Dữ liệu &amp; thương hiệu</span></h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">HR Reporting</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Báo cáo HR</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">AI &amp; Automation</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>AI &amp; Tự động hóa</span>
+          <span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 en">Employer Branding</span><span class="text-xs px-3 py-1.5 rounded-full border border-forest/30 bg-forest/5 vi" hidden>Thương hiệu tuyển dụng</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK: charts ============ -->
+  <section id="work" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="bar-chart-3" style="width:14px;height:14px"></i>
+      <span class="en">Results in numbers</span><span class="vi" hidden>Kết quả bằng số liệu</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">Work that moved the numbers</span><span class="vi" hidden>Những kết quả thực tế</span></h2>
+
+    <div class="grid md:grid-cols-2 gap-5 mt-6">
+
+      <!-- bar chart card -->
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-6">
+        <h3 class="font-semibold en">Hiring SLA by level</h3>
+        <h3 class="font-semibold vi" hidden>SLA tuyển dụng theo cấp bậc</h3>
+        <p class="text-xs text-gray-500 mt-1 font-mono en">Target days-to-fill, EQuest Education Group</p>
+        <p class="text-xs text-gray-500 mt-1 font-mono vi" hidden>Số ngày tuyển dụng mục tiêu, EQuest Education Group</p>
+
+        <div class="bar-track mt-8">
+          <div class="bar-col">
+            <span class="font-mono text-xs text-forest-light mb-1">20</span>
+            <div class="bar-fill" style="height:50%"></div>
+            <span class="text-[11px] text-gray-500 mt-2 text-center en">Junior /<br>Middle</span>
+            <span class="text-[11px] text-gray-500 mt-2 text-center vi" hidden>Junior /<br>Middle</span>
+          </div>
+          <div class="bar-col">
+            <span class="font-mono text-xs text-forest-light mb-1">30</span>
+            <div class="bar-fill" style="height:75%"></div>
+            <span class="text-[11px] text-gray-500 mt-2 text-center en">Senior</span>
+            <span class="text-[11px] text-gray-500 mt-2 text-center vi" hidden>Senior</span>
+          </div>
+          <div class="bar-col">
+            <span class="font-mono text-xs text-forest-light mb-1">40</span>
+            <div class="bar-fill" style="height:100%"></div>
+            <span class="text-[11px] text-gray-500 mt-2 text-center en">Leader /<br>Manager</span>
+            <span class="text-[11px] text-gray-500 mt-2 text-center vi" hidden>Leader /<br>Manager</span>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-6 font-mono en">84% attainment against these targets</p>
+        <p class="text-xs text-gray-500 mt-6 font-mono vi" hidden>Đạt 84% so với mục tiêu này</p>
+      </div>
+
+      <!-- donut chart card -->
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-6 flex flex-col">
+        <h3 class="font-semibold en">The 20-FTE request</h3>
+        <h3 class="font-semibold vi" hidden>Yêu cầu tuyển 20 vị trí</h3>
+        <p class="text-xs text-gray-500 mt-1 font-mono en">Closed without hiring the full headcount</p>
+        <p class="text-xs text-gray-500 mt-1 font-mono vi" hidden>Lấp đầy mà không cần tuyển đủ 20 người</p>
+
+        <div class="flex items-center gap-6 mt-6 flex-1">
+          <div class="donut" style="--pct:65">
+            <div class="donut-hole">
+              <span class="font-mono text-xl font-bold">65%</span>
+              <span class="text-[10px] text-gray-500 en">redeployed</span>
+              <span class="text-[10px] text-gray-500 vi" hidden>điều phối nội bộ</span>
+            </div>
+          </div>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li class="flex items-center gap-2"><i data-lucide="users" class="text-forest-light" style="width:14px;height:14px"></i><span class="en">13 of 20 roles filled via internal redeployment &amp; upskilling</span><span class="vi" hidden>13/20 vị trí được lấp qua điều phối &amp; nâng cao năng lực nội bộ</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="clock" class="text-forest-light" style="width:14px;height:14px"></i><span class="en">&lt; 2 months to close the gap</span><span class="vi" hidden>&lt; 2 tháng để lấp khoảng trống</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="piggy-bank" class="text-forest-light" style="width:14px;height:14px"></i><span class="en">~VND 30&ndash;50M/month saved</span><span class="vi" hidden>Tiết kiệm ~30&ndash;50 triệu/tháng</span></li>
+          </ul>
+        </div>
+        <p class="text-xs text-gray-600 mt-4 font-mono">Freecracy &middot; 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE (timeline) ============ -->
+  <section id="experience" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="git-commit-vertical" style="width:14px;height:14px"></i>
+      <span class="en">The road so far</span><span class="vi" hidden>Con đường đã qua</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">Experience</span><span class="vi" hidden>Kinh nghiệm làm việc</span></h2>
+
+    <div class="tl-rail mt-8 pl-10 space-y-6">
+
+<div class="relative">
+  <span class="tl-dot"></span>
+  <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+    <div class="font-mono text-xs text-forest-light">06/2026 &mdash; <span class="en">Present</span><span class="vi" hidden>Hiện tại</span></div>
+    <h3 class="font-semibold mt-1"><span class="en">Senior TA &amp; People and Culture Business Partner</span><span class="vi" hidden>Chuyên viên cao cấp TA &amp; Đối tác Văn hóa &amp; Con người</span></h3>
+    <p class="text-sm text-forest-light mt-0.5">EQuest Education Group</p>
+    <ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Partner with managers, directors and BU heads to translate business priorities into TA strategy.</span><span class="vi" hidden>Đồng hành cùng quản lý, giám đốc và trưởng đơn vị để chuyển hóa ưu tiên kinh doanh thành chiến lược tuyển dụng.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Own end-to-end recruitment across five city locations, from sourcing to onboarding.</span><span class="vi" hidden>Phụ trách tuyển dụng toàn trình tại năm địa điểm, từ tìm nguồn đến hội nhập.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Built an HR dashboard (Excel, Claude, Gemini Pro) that cut manual screening time by ~50%.</span><span class="vi" hidden>Xây dựng HR Dashboard (Excel, Claude, Gemini Pro) giúp giảm ~50% thời gian sàng lọc thủ công.</span></span></li></ul>
+    <button type="button" class="acc-btn flex items-center gap-1.5 text-forest-light font-mono text-xs hover:text-white transition-colors duration-200 mt-4" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Full details</span><span class="vi" hidden>Chi tiết đầy đủ</span></span></button>
+    <div class="acc-body mt-4 pt-4 border-t border-white/10" hidden>
+      <p class="text-xs text-gray-500 leading-relaxed"><span class="en">EQuest Education Group is a leading private educational organization in Vietnam, founded in 2003. It runs an education ecosystem across three segments: K-12 Education, College &amp; University, and Educational Technology (EdTech).</span><span class="vi" hidden>EQuest Education Group là tổ chức giáo dục tư nhân hàng đầu tại Việt Nam, thành lập năm 2003. Tập đoàn vận hành hệ sinh thái giáo dục gồm ba mảng: K-12, Cao đẳng &amp; Đại học và Công nghệ giáo dục (EdTech).</span></p>
+      <ul class="mt-3 space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Partner with Managers, Directors and BU Heads to understand business priorities, workforce requirements and critical hiring needs, translating business demands into practical TA strategy.</span><span class="vi" hidden>Đồng hành cùng quản lý, giám đốc và trưởng đơn vị để nắm rõ ưu tiên kinh doanh, nhu cầu nhân lực và các vị trí tuyển dụng trọng yếu, từ đó chuyển hóa nhu cầu kinh doanh thành chiến lược tuyển dụng thực tiễn.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Manage end-to-end recruitment across assigned business functions and multiple locations (Ho Chi Minh, Ha Noi, Hue, Da Nang, Hai Phong and other provinces): requirement clarification, sourcing strategy, candidate assessment, stakeholder management, offer negotiation and onboarding coordination.</span><span class="vi" hidden>Quản lý tuyển dụng toàn trình cho các khối chức năng được giao tại nhiều địa điểm (TP.HCM, Hà Nội, Huế, Đà Nẵng, Hải Phòng và các tỉnh khác): làm rõ yêu cầu, xây dựng chiến lược tìm nguồn, đánh giá ứng viên, làm việc với các bên liên quan, đàm phán offer và phối hợp hội nhập.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Support workforce/manpower planning discussions by reviewing hiring needs, role priorities, required capabilities and talent availability to support business growth.</span><span class="vi" hidden>Hỗ trợ các cuộc thảo luận hoạch định nhân lực bằng việc rà soát nhu cầu tuyển dụng, mức độ ưu tiên vị trí, năng lực cần có và nguồn nhân tài sẵn có để phục vụ tăng trưởng kinh doanh.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Provide talent market intelligence, candidate availability and hiring feasibility insights to leaders to support people-related decisions.</span><span class="vi" hidden>Cung cấp thông tin thị trường nhân tài, mức độ sẵn có của ứng viên và tính khả thi của việc tuyển dụng cho lãnh đạo để hỗ trợ các quyết định về con người.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Lead employer branding initiatives across social and internal channels to strengthen talent attraction, employee experience and organizational visibility.</span><span class="vi" hidden>Dẫn dắt các hoạt động xây dựng thương hiệu nhà tuyển dụng trên kênh mạng xã hội và nội bộ nhằm tăng sức hút nhân tài, trải nghiệm nhân viên và độ nhận diện của tổ chức.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Support employee engagement/experience and Learning &amp; Organization Development (L&amp;OD) activities.</span><span class="vi" hidden>Hỗ trợ các hoạt động gắn kết/trải nghiệm nhân viên và Đào tạo &amp; Phát triển tổ chức (L&amp;OD).</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Built an HR Dashboard in Excel with Claude and Gemini Pro that tracks candidates and offers through the full funnel, turning raw numbers into time-to-fill, time-to-hire and stage-by-stage conversion rates, and using source performance to steer sourcing budget allocation. Layered AI screening on top to cut manual resume screening, reducing time spent on manual tasks by ~50% versus before.</span><span class="vi" hidden>Xây dựng HR Dashboard trên Excel cùng Claude và Gemini Pro để theo dõi ứng viên và offer xuyên suốt phễu tuyển dụng, chuyển số liệu thô thành time-to-fill, time-to-hire và tỷ lệ chuyển đổi từng giai đoạn, đồng thời dùng hiệu quả từng nguồn để điều hướng phân bổ ngân sách sourcing. Bổ sung lớp sàng lọc bằng AI để giảm sàng lọc CV thủ công, giúp giảm ~50% thời gian cho các công việc thủ công so với trước.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Own company-wide events end-to-end — E-Connection Day, the Annual Summit, team-building trips and company outings — handling vendor sourcing, budget and on-the-ground logistics, with registration run through a Google Apps Script form I built. I use them as a real lever for culture and engagement rather than a checkbox activity.</span><span class="vi" hidden>Phụ trách trọn vẹn các sự kiện toàn công ty — E-Connection Day, Annual Summit, team-building và company trip — từ tìm nhà cung cấp, ngân sách đến hậu cần tại chỗ, với đăng ký chạy qua biểu mẫu Google Apps Script do tôi tự xây dựng. Tôi xem các sự kiện này là đòn bẩy thực sự cho văn hóa và gắn kết, thay vì chỉ làm cho đủ thủ tục.</span></span></li></ul>
+    </div>
+  </div>
+</div>
+<div class="relative">
+  <span class="tl-dot"></span>
+  <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+    <div class="font-mono text-xs text-forest-light">02/2021 &mdash; 05/2026</div>
+    <h3 class="font-semibold mt-1"><span class="en">TABP Lead &amp; HRBP</span><span class="vi" hidden>Trưởng nhóm TABP &amp; HRBP</span></h3>
+    <p class="text-sm text-forest-light mt-0.5">Freecracy</p>
+    <p class="font-mono text-[11px] text-gray-600 mt-1 en">08/2023&ndash;05/2026 TABP Lead &amp; HRBP &middot; 02/2022&ndash;08/2023 Senior TABP &middot; 02/2021&ndash;02/2022 Senior IT Recruiter</p>
+    <p class="font-mono text-[11px] text-gray-600 mt-1 vi" hidden>08/2023&ndash;05/2026 Trưởng nhóm TABP &amp; HRBP &middot; 02/2022&ndash;08/2023 TABP cao cấp &middot; 02/2021&ndash;02/2022 Tư vấn tuyển dụng IT cao cấp</p>
+    <ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Full-cycle technical recruitment across 8 functions, ~93% offer acceptance rate.</span><span class="vi" hidden>Tuyển dụng kỹ thuật toàn trình qua 8 mảng, tỷ lệ chấp nhận offer ~93%.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Closed a 20-FTE gap in under 2 months via internal redeployment.</span><span class="vi" hidden>Lấp khoảng trống 20 vị trí trong chưa đầy 2 tháng qua điều phối nội bộ.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Built 9-box talent review, OKR/KPI framework and a hiring SLA at 84% attainment.</span><span class="vi" hidden>Xây dựng đánh giá 9-Box, khung OKR/KPI và SLA tuyển dụng đạt 84%.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Led a team of 2; promoted to Team Leader within 6 months.</span><span class="vi" hidden>Dẫn dắt đội 2 người; thăng chức Team Leader sau 6 tháng.</span></span></li></ul>
+    <button type="button" class="acc-btn flex items-center gap-1.5 text-forest-light font-mono text-xs hover:text-white transition-colors duration-200 mt-4" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Full details</span><span class="vi" hidden>Chi tiết đầy đủ</span></span></button>
+    <div class="acc-body mt-4 pt-4 border-t border-white/10" hidden>
+      <p class="text-xs text-gray-500 leading-relaxed"><span class="en">Freecracy is an HR-tech company (SaaS / ATS / DX Studio / Consulting) with 550,000+ engineers worldwide.</span><span class="vi" hidden>Freecracy là công ty HR-tech (SaaS / ATS / DX Studio / Consulting) với hơn 550.000 kỹ sư trên toàn thế giới.</span></p>
+      <div class="mt-3 divide-y divide-white/5 rounded-lg border border-white/10 bg-white/[0.02] px-3">
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Talent Acquisition &amp; Stakeholder Partnering</span><span class="vi" hidden>Tuyển dụng &amp; Đồng hành cùng các bên liên quan</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Managed full-cycle technical recruitment (Backend, Frontend, Mobile, QA/QC, DevOps, Cloud/Data, PM, BrSE) for the ATS &amp; DX Studio divisions; offer acceptance rate ~93%.</span><span class="vi" hidden>Quản lý tuyển dụng kỹ thuật toàn trình (Backend, Frontend, Mobile, QA/QC, DevOps, Cloud/Data, PM, BrSE) cho hai khối ATS &amp; DX Studio; tỷ lệ chấp nhận offer ~93%.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Partnered proactively with engineering and product leaders to translate business needs into hiring strategy, advising on role leveling, market trends and talent availability.</span><span class="vi" hidden>Chủ động phối hợp với lãnh đạo kỹ thuật và sản phẩm để chuyển nhu cầu kinh doanh thành chiến lược tuyển dụng, tư vấn về phân cấp vị trí, xu hướng thị trường và nguồn nhân tài.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Acted as Talent Advisor, giving data-driven recommendations on hiring plans, budgeting and talent allocation aligned with business goals.</span><span class="vi" hidden>Đóng vai trò Talent Advisor, đưa ra khuyến nghị dựa trên dữ liệu về kế hoạch tuyển dụng, ngân sách và phân bổ nhân tài phù hợp mục tiêu kinh doanh.</span></span></li></ul></div></div>
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Workforce Planning — Flagship Case: 20-FTE Hiring Request</span><span class="vi" hidden>Hoạch định nhân lực — Case tiêu biểu: yêu cầu tuyển 20 FTE</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">When 2–3 new IT projects triggered a request for 20 FTEs, challenged the headcount ask by first assessing current vs. required capacity, skill gaps, budget and seniority mix with BU leaders.</span><span class="vi" hidden>Khi 2–3 dự án IT mới phát sinh yêu cầu 20 FTE, tôi phản biện đề xuất headcount bằng cách cùng lãnh đạo BU đánh giá trước năng lực hiện có so với năng lực cần thiết, khoảng trống kỹ năng, ngân sách và cơ cấu cấp bậc.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Applied the 5B approach: redeployed 3 engineers (Python/Kotlin/Swift) rolling off other projects; allocated 2–3 Frontend staff at 0.5 FTE across multiple projects; provided 1:1 mentoring to move Vue.js-experienced Middle FE candidates into React; right-sized the remaining 10 roles by level (Middle vs. Senior) before opening external sourcing. I also proposed and integrated ChatGPT Pro into daily workflows, boosting productivity through process automation, document handling and content creation.</span><span class="vi" hidden>Áp dụng phương pháp 5B: điều chuyển 3 kỹ sư (Python/Kotlin/Swift) vừa kết thúc dự án khác; phân bổ 2–3 nhân sự Frontend ở mức 0,5 FTE cho nhiều dự án; kèm cặp 1:1 để chuyển các ứng viên FE Middle có kinh nghiệm Vue.js sang React; điều chỉnh lại 10 vị trí còn lại theo cấp bậc (Middle hay Senior) trước khi mở tuyển ngoài. Tôi cũng đề xuất và đưa ChatGPT Pro vào quy trình làm việc hằng ngày, nâng năng suất nhờ tự động hóa quy trình, xử lý tài liệu và sáng tạo nội dung.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Result: closed the capacity gap in under 2 months without hiring the full 20 headcount, cut recruitment cost by ~VND 30–50M/month, met KPI targets, and was recognized as Employee of the Month.</span><span class="vi" hidden>Kết quả: lấp khoảng trống năng lực trong chưa đầy 2 tháng mà không cần tuyển đủ 20 headcount, giảm chi phí tuyển dụng ~30–50 triệu VND/tháng, đạt KPI và được vinh danh Nhân viên của tháng.</span></span></li></ul></div></div>
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Talent Review, Succession &amp; Internal Mobility</span><span class="vi" hidden>Đánh giá nhân tài, kế thừa &amp; luân chuyển nội bộ</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Use annual PMR results with a 9-box grid to identify HiPo and critical talent; build replacement charts and map critical/key positions for succession.</span><span class="vi" hidden>Dùng kết quả PMR hằng năm cùng lưới 9-Box để nhận diện nhân sự tiềm năng (HiPo) và nhân tài then chốt; xây dựng sơ đồ thay thế và lập bản đồ các vị trí quan trọng/chủ chốt cho kế thừa.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Identify and develop successors for key positions through rotation, transfer and promotion; use internal mobility as both a succession and retention lever, driven by business and hiring needs.</span><span class="vi" hidden>Xác định và phát triển người kế thừa cho các vị trí chủ chốt thông qua luân chuyển, điều động và thăng tiến; dùng luân chuyển nội bộ vừa là đòn bẩy kế thừa vừa là đòn bẩy giữ chân, dựa trên nhu cầu kinh doanh và tuyển dụng.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Conduct stay/exit conversations to surface root causes and flight risk, feeding early, targeted retention actions.</span><span class="vi" hidden>Thực hiện các cuộc trao đổi stay/exit để tìm nguyên nhân gốc và rủi ro nghỉ việc, từ đó đưa ra hành động giữ chân sớm và có trọng tâm.</span></span></li></ul></div></div>
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Employee Experience, OKR/KPI &amp; Organization Advisory</span><span class="vi" hidden>Trải nghiệm nhân viên, OKR/KPI &amp; Tư vấn tổ chức</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Designed an OKR/KPI framework for the TABP team across 5 dimensions, including time-to-fill, onboarding completion, 1-month retention and probation pass rate.</span><span class="vi" hidden>Thiết kế khung OKR/KPI cho đội TABP theo 5 chiều, gồm time-to-fill, hoàn tất onboarding, tỷ lệ giữ chân 1 tháng và tỷ lệ đạt thử việc.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Own Job Understanding and Job Analysis, partnering with department heads to build accurate JDs per role; support HRM on the annual PMR rollout.</span><span class="vi" hidden>Phụ trách Job Understanding và Job Analysis, phối hợp với trưởng bộ phận để xây dựng JD chính xác cho từng vị trí; hỗ trợ HRM triển khai PMR hằng năm.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Advise Business Heads on team staffing health and structure (contributing input rather than owning organizational design).</span><span class="vi" hidden>Tư vấn cho Business Head về mức độ khỏe mạnh của nhân sự và cơ cấu đội ngũ (đóng góp ý kiến, không sở hữu việc thiết kế tổ chức).</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Handle employee relations cases — conflict resolution, misconduct, performance issues — in compliance with Vietnamese labor law; run engagement surveys and retention programs (retention ~75%, engagement score &gt;4.3/5.0).</span><span class="vi" hidden>Xử lý các vụ việc quan hệ lao động — giải quyết xung đột, vi phạm kỷ luật, vấn đề hiệu suất — tuân thủ luật lao động Việt Nam; triển khai khảo sát gắn kết và chương trình giữ chân (tỷ lệ giữ chân ~75%, điểm gắn kết &gt;4,3/5,0).</span></span></li></ul></div></div>
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">HR Transformation: AI, Automation, Dashboards &amp; Employer Branding</span><span class="vi" hidden>Chuyển đổi HR: AI, tự động hóa, dashboard &amp; thương hiệu nhà tuyển dụng</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Reduced manual, repetitive HR tasks by ~80% through AI and automation tools; built an internal HR chatbot for labor-law and social-insurance queries.</span><span class="vi" hidden>Giảm ~80% công việc HR thủ công, lặp đi lặp lại nhờ AI và công cụ tự động hóa; xây dựng chatbot HR nội bộ trả lời câu hỏi về luật lao động và bảo hiểm xã hội.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Created “X-ray Research” to auto-generate Boolean search strings for faster sourcing, and built an HR Dashboard spanning recruitment (funnel, time-to-fill, sourcing budget) and workforce metrics (headcount by team/BU, tech-stack distribution, internal mobility, turnover/attrition across probation, quarterly and yearly) — used directly to advise workforce planning and shape employee development/training plans.</span><span class="vi" hidden>Tạo công cụ “X-ray Research” tự động sinh chuỗi tìm kiếm Boolean để sourcing nhanh hơn, và xây dựng HR Dashboard bao phủ cả tuyển dụng (phễu, time-to-fill, ngân sách sourcing) lẫn chỉ số nhân sự (headcount theo team/BU, phân bổ tech-stack, luân chuyển nội bộ, tỷ lệ nghỉ việc theo thử việc, quý và năm) — dùng trực tiếp để tư vấn hoạch định nhân lực và định hình kế hoạch phát triển/đào tạo.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Built an Employer Branding dashboard (Notion) and Google Apps Script tools for employee notifications and event registration.</span><span class="vi" hidden>Xây dựng dashboard Employer Branding (Notion) và các công cụ Google Apps Script cho thông báo nhân viên và đăng ký sự kiện.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Introduced a Hiring SLA (30 days Senior / 40 days Leader-Manager / 20 days Junior-Middle) to shorten time-to-fill, protect offer competitiveness and clarify HR/hiring-manager accountability; achieved 84% SLA attainment.</span><span class="vi" hidden>Đưa vào Hiring SLA (30 ngày cho Senior / 40 ngày cho Leader-Manager / 20 ngày cho Junior-Middle) để rút ngắn time-to-fill, giữ sức cạnh tranh của offer và làm rõ trách nhiệm giữa HR và hiring manager; đạt 84% tuân thủ SLA.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Led employer branding campaigns on social media and university networks to strengthen visibility among Gen Z/Gen Alpha tech talent; managed outreach, talent events and internal engagement programs.</span><span class="vi" hidden>Dẫn dắt các chiến dịch employer branding trên mạng xã hội và mạng lưới trường đại học để tăng độ nhận diện với nhân tài công nghệ Gen Z/Gen Alpha; quản lý outreach, sự kiện nhân tài và chương trình gắn kết nội bộ.</span></span></li></ul></div></div>
+        <div><button type="button" class="acc-btn w-full flex items-center gap-2 text-left text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200 py-2" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Team Leadership &amp; Recognition</span><span class="vi" hidden>Dẫn dắt đội ngũ &amp; ghi nhận</span></span></button>
+          <div class="acc-body pb-3 pl-6" hidden><ul class="space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Led a team of 2 Talent Partners (IT &amp; Non-IT); promoted to Team Leader within 6 months.</span><span class="vi" hidden>Dẫn dắt đội 2 Talent Partner (IT &amp; Non-IT); thăng chức Team Leader sau 6 tháng.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Best Employee nominee 2024 (top 4); “Best Member” awards in 2022, 2023 and 2025; 2nd place, AI Boost Challenge 2025.</span><span class="vi" hidden>Đề cử Nhân viên xuất sắc 2024 (top 4); giải “Best Member” các năm 2022, 2023 và 2025; hạng nhì cuộc thi AI Boost Challenge 2025.</span></span></li></ul></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="relative">
+  <span class="tl-dot"></span>
+  <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+    <div class="font-mono text-xs text-forest-light">03/2020 &mdash; 09/2020</div>
+    <h3 class="font-semibold mt-1"><span class="en">IT Recruitment Consultant</span><span class="vi" hidden>Tư vấn tuyển dụng IT</span></h3>
+    <p class="text-sm text-forest-light mt-0.5">JAC Recruitment Corporation</p>
+    <ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">End-to-end IT recruitment for APAC clients.</span><span class="vi" hidden>Tuyển dụng IT toàn trình cho khách hàng khu vực APAC.</span></span></li></ul>
+    <button type="button" class="acc-btn flex items-center gap-1.5 text-forest-light font-mono text-xs hover:text-white transition-colors duration-200 mt-4" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Full details</span><span class="vi" hidden>Chi tiết đầy đủ</span></span></button>
+    <div class="acc-body mt-4 pt-4 border-t border-white/10" hidden>
+      <p class="text-xs text-gray-500 leading-relaxed"><span class="en">JAC Recruitment Corporation is an international recruitment consultancy.</span><span class="vi" hidden>JAC Recruitment Corporation là công ty tư vấn tuyển dụng quốc tế.</span></p>
+      <ul class="mt-3 space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Delivered end-to-end recruitment for IT roles across APAC clients; built technical pipelines matched on technical and behavioral fit.</span><span class="vi" hidden>Thực hiện tuyển dụng toàn trình cho các vị trí IT của khách hàng khu vực APAC; xây dựng pipeline kỹ thuật phù hợp cả về chuyên môn lẫn hành vi.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Sourced candidates via job boards, social networks, databases, referrals and networking; advised clients and candidates on IT trends and salary benchmarks.</span><span class="vi" hidden>Tìm ứng viên qua job board, mạng xã hội, cơ sở dữ liệu, giới thiệu và networking; tư vấn cho khách hàng và ứng viên về xu hướng IT và mặt bằng lương.</span></span></li></ul>
+    </div>
+  </div>
+</div>
+<div class="relative">
+  <span class="tl-dot"></span>
+  <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+    <div class="font-mono text-xs text-forest-light">10/2018 &mdash; 03/2020</div>
+    <h3 class="font-semibold mt-1"><span class="en">IT Recruitment Consultant</span><span class="vi" hidden>Tư vấn tuyển dụng IT</span></h3>
+    <p class="text-sm text-forest-light mt-0.5">Talent Trader Group</p>
+    <ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Top 10 revenue-generating employees, 2019.</span><span class="vi" hidden>Top 10 nhân viên tạo doanh thu cao nhất năm 2019.</span></span></li></ul>
+    <button type="button" class="acc-btn flex items-center gap-1.5 text-forest-light font-mono text-xs hover:text-white transition-colors duration-200 mt-4" aria-expanded="false"><i data-lucide="chevron-right" class="chev flex-shrink-0 text-forest-light" style="width:15px;height:15px"></i><span><span class="en">Full details</span><span class="vi" hidden>Chi tiết đầy đủ</span></span></button>
+    <div class="acc-body mt-4 pt-4 border-t border-white/10" hidden>
+      <p class="text-xs text-gray-500 leading-relaxed"><span class="en">Talent Trader Group is a mid-management recruitment specialist.</span><span class="vi" hidden>Talent Trader Group là đơn vị chuyên tuyển dụng nhân sự cấp quản lý trung.</span></p>
+      <ul class="mt-3 space-y-2.5 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Managed end-to-end IT recruitment (software development, networking, cybersecurity, data analysis) across levels in the Singapore market; assessed technical and interpersonal fit.</span><span class="vi" hidden>Quản lý tuyển dụng IT toàn trình (phát triển phần mềm, mạng, an ninh mạng, phân tích dữ liệu) ở nhiều cấp bậc tại thị trường Singapore; đánh giá mức độ phù hợp về chuyên môn và kỹ năng giao tiếp.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Partnered with clients to build customized sourcing strategies; ranked among the top 10 revenue-generating employees in 2019.</span><span class="vi" hidden>Phối hợp với khách hàng xây dựng chiến lược tìm nguồn riêng cho từng nhu cầu; nằm trong top 10 nhân viên tạo doanh thu cao nhất năm 2019.</span></span></li></ul>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  <!-- ============ TOOLS (list view) ============ -->
+  <section id="tools" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="wrench" style="width:14px;height:14px"></i>
+      <span class="en">Daily kit</span><span class="vi" hidden>Công cụ hằng ngày</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">Tools &amp; platforms</span><span class="vi" hidden>Công cụ &amp; nền tảng</span></h2>
+
+    <div class="card mt-6 rounded-xl border border-white/10 bg-ink-card divide-y divide-white/5">
+      <div class="flex items-center gap-4 p-4">
+        <i data-lucide="search" class="text-forest-light flex-shrink-0" style="width:18px;height:18px"></i>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium en">Recruitment</div>
+          <div class="text-sm font-medium vi" hidden>Tuyển dụng</div>
+          <div class="text-xs text-gray-500 mt-0.5">ATS (TalentsForce) &middot; Boolean &amp; X-ray search</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 p-4">
+        <i data-lucide="brain-circuit" class="text-forest-light flex-shrink-0" style="width:18px;height:18px"></i>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium">AI</div>
+          <div class="text-xs text-gray-500 mt-0.5">Claude &middot; ChatGPT &middot; Gemini &middot; Merlin</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 p-4">
+        <i data-lucide="settings-2" class="text-forest-light flex-shrink-0" style="width:18px;height:18px"></i>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium en">Operations</div>
+          <div class="text-sm font-medium vi" hidden>Vận hành</div>
+          <div class="text-xs text-gray-500 mt-0.5">Notion &middot; Airtable &middot; Google Apps Script</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 p-4">
+        <i data-lucide="palette" class="text-forest-light flex-shrink-0" style="width:18px;height:18px"></i>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium en">Content &amp; design</div>
+          <div class="text-sm font-medium vi" hidden>Nội dung &amp; thiết kế</div>
+          <div class="text-xs text-gray-500 mt-0.5">Canva &middot; Pitch &middot; Miro &middot; Publer &middot; Premiere &middot; CapCut</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5 mt-5">
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-gray-500 mb-3"><span class="en">Education</span><span class="vi" hidden>Học vấn</span></h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between gap-3 pb-3 border-b border-dashed border-white/10">
+            <span class="en">Master of HR Management &middot; GPA 4.0<br><span class="text-gray-500">Columbia Southern University</span></span>
+            <span class="vi" hidden>Thạc sĩ Quản trị Nhân lực &middot; GPA 4.0<br><span class="text-gray-500">Columbia Southern University</span></span>
+            <span class="font-mono text-xs text-gray-500 flex-shrink-0">2023&ndash;25</span>
+          </div>
+          <div class="flex justify-between gap-3">
+            <span class="en">BA Business Administration &middot; GPA 3.4<br><span class="text-gray-500">University of Sunderland</span></span>
+            <span class="vi" hidden>Cử nhân QTKD &middot; GPA 3.4<br><span class="text-gray-500">University of Sunderland</span></span>
+            <span class="font-mono text-xs text-gray-500 flex-shrink-0">2013&ndash;18</span>
+          </div>
+        </div>
+      </div>
+      <div class="card rounded-xl border border-white/10 bg-ink-card p-5">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-gray-500 mb-3"><span class="en">Certifications</span><span class="vi" hidden>Chứng chỉ</span></h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex gap-2"><i data-lucide="badge-check" class="text-forest-light flex-shrink-0 mt-0.5" style="width:14px;height:14px"></i><span class="en">Team Management &mdash; Leadership to Create Motivation</span><span class="vi" hidden>Quản lý đội nhóm &mdash; Lãnh đạo tạo động lực</span></li>
+          <li class="flex gap-2"><i data-lucide="badge-check" class="text-forest-light flex-shrink-0 mt-0.5" style="width:14px;height:14px"></i><span class="en">Foundation Business Analyst Certificate</span><span class="vi" hidden>Chứng chỉ Nền tảng Phân tích Kinh doanh</span></li>
+          <li class="flex gap-2"><i data-lucide="badge-check" class="text-forest-light flex-shrink-0 mt-0.5" style="width:14px;height:14px"></i><span class="en">Competency-Based Interview</span><span class="vi" hidden>Phỏng vấn theo năng lực</span></li>
+          <li class="flex gap-2"><i data-lucide="badge-check" class="text-forest-light flex-shrink-0 mt-0.5" style="width:14px;height:14px"></i><span class="en">Foundation HR Profession Certificate</span><span class="vi" hidden>Chứng chỉ Nền tảng Nghề Nhân sự</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FREE TOOLKIT ============ -->
+  <section id="toolkit" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="layout-list" style="width:14px;height:14px"></i>
+      <span class="en">Try it yourself</span><span class="vi" hidden>Dùng thử ngay</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">Free HR toolkit</span><span class="vi" hidden>Bộ công cụ HR miễn phí</span></h2>
+    <p class="text-sm text-gray-500 mt-2 max-w-lg en">Small calculators built from real HR workflows. No sign-up, everything runs in your browser.</p>
+    <p class="text-sm text-gray-500 mt-2 max-w-lg vi" hidden>Những công cụ nhỏ xây từ quy trình HR thực tế. Không cần đăng ký, chạy hoàn toàn trên trình duyệt của bạn.</p>
+
+    <div class="card mt-6 rounded-xl border border-white/10 bg-ink-card divide-y divide-white/5">
+
+      <div class="flex items-center gap-4 p-4 flex-wrap">
+        <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="users" class="text-gray-500" style="width:18px;height:18px"></i>
+        </div>
+        <div class="flex-1 min-w-[180px]">
+          <div class="text-sm font-medium en">Talent Acquisition</div>
+          <div class="text-sm font-medium vi" hidden>Tuyển dụng</div>
+          <div class="text-xs text-gray-500 mt-0.5 en">Hiring, sourcing and candidate experience.</div>
+          <div class="text-xs text-gray-500 mt-0.5 vi" hidden>Tuyển dụng, tìm nguồn và trải nghiệm ứng viên.</div>
+        </div>
+        <span class="font-mono text-[10px] tracking-wide uppercase px-3 py-1.5 rounded-full border border-dashed border-white/20 text-gray-500 flex-shrink-0">
+          <span class="en">Coming soon</span><span class="vi" hidden>Sắp ra mắt</span>
+        </span>
+      </div>
+
+      <div class="flex items-center gap-4 p-4 flex-wrap">
+        <div class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="scale" class="text-forest-light" style="width:18px;height:18px"></i>
+        </div>
+        <div class="flex-1 min-w-[180px]">
+          <div class="text-sm font-medium en">Offer Comparison</div>
+          <div class="text-sm font-medium vi" hidden>So sánh Offer</div>
+          <div class="text-xs text-gray-500 mt-0.5 en">Compare a candidate's package between your company and a competing offer.</div>
+          <div class="text-xs text-gray-500 mt-0.5 vi" hidden>So sánh gói lương ứng viên giữa công ty bạn và offer đối thủ.</div>
+        </div>
+        <button type="button" id="toggle-offer-tool" class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0 px-3 py-1.5 rounded-full hover:bg-forest/10 transition-colors duration-200">
+          <span class="en">Open</span><span class="vi" hidden>Mở</span>
+          <i data-lucide="arrow-right" style="width:13px;height:13px"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ---- Offer Comparison tool (3 steps) ---- -->
+    <div id="offer-tool" hidden class="mt-5 rounded-xl border border-forest/25 bg-ink-card p-5 sm:p-6">
+
+      <!-- STEP 01: priorities -->
+      <div>
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-forest-light text-sm">01</span>
+          <h3 class="text-xl font-bold en">Rank what matters to the candidate</h3>
+          <h3 class="text-xl font-bold vi" hidden>Xếp hạng điều ứng viên quan tâm nhất</h3>
+        </div>
+        <p class="text-sm text-gray-500 mt-2 max-w-2xl en">Order the 5 EVP attributes from most to least important. Each rank carries a fixed weight, and each attribute's weight is split across its own criteria. Tap a row to see the split.</p>
+        <p class="text-sm text-gray-500 mt-2 max-w-2xl vi" hidden>Sắp xếp 5 thuộc tính EVP từ quan trọng nhất đến ít quan trọng nhất. Mỗi hạng có một tỉ trọng cố định, và tỉ trọng của mỗi thuộc tính được chia tiếp cho các tiêu chí bên trong. Nhấn vào một dòng để xem cách chia.</p>
+        <div id="priority-list" class="mt-4 space-y-2"></div>
+        <p class="font-mono text-[10px] text-gray-600 mt-3 en">Within-attribute split uses Rank-Order Centroid weighting (Barron &amp; Barrett, 1996) &mdash; the criterion listed first in each group is treated as most important.</p>
+        <p class="font-mono text-[10px] text-gray-600 mt-3 vi" hidden>Cách chia trong mỗi thuộc tính dùng phương pháp Rank-Order Centroid (Barron &amp; Barrett, 1996) &mdash; tiêu chí xếp đầu trong mỗi nhóm được xem là quan trọng nhất.</p>
+      </div>
+
+      <!-- STEP 02: comparison form -->
+      <div class="mt-10 pt-8 border-t border-white/10">
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-forest-light text-sm">02</span>
+          <h3 class="text-xl font-bold en">Candidate offer comparison</h3>
+          <h3 class="text-xl font-bold vi" hidden>So sánh offer cho ứng viên</h3>
+        </div>
+        <p class="text-sm text-gray-500 mt-2 max-w-2xl en">Fill in both offers. Leave a criterion empty to skip it &mdash; the score is rebalanced over what you entered.</p>
+        <p class="text-sm text-gray-500 mt-2 max-w-2xl vi" hidden>Điền thông tin offer của hai bên. Để trống tiêu chí nào thì tiêu chí đó được bỏ qua &mdash; điểm số được cân lại trên phần bạn đã nhập.</p>
+
+        <div class="grid sm:grid-cols-3 gap-3 mt-5">
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 en">Candidate name (optional)</span>
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 vi" hidden>Tên ứng viên (tuỳ chọn)</span>
+            <input type="text" id="cand-name" class="fld mt-1" style="text-align:left">
+          </label>
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 en">Current job title</span>
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 vi" hidden>Chức danh hiện tại</span>
+            <input type="text" id="cand-title" class="fld mt-1" style="text-align:left">
+          </label>
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 en">Current level</span>
+            <span class="font-mono text-[10px] uppercase tracking-wide text-gray-500 vi" hidden>Level hiện tại</span>
+            <select id="cand-level" class="fld mt-1" style="text-align:left"></select>
+          </label>
+        </div>
+
+        <div id="cmp-form" class="mt-5 rounded-xl border border-white/10 overflow-hidden"></div>
+      </div>
+
+      <!-- STEP 03: results -->
+      <div class="mt-10 pt-8 border-t border-white/10">
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-forest-light text-sm">03</span>
+          <h3 class="text-xl font-bold en">Results</h3>
+          <h3 class="text-xl font-bold vi" hidden>Kết quả</h3>
+        </div>
+        <div id="cmp-results" class="mt-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MY PROJECTS ============ -->
+  <section id="projects" class="mt-16">
+    <div class="flex items-center gap-2 text-forest-light font-mono text-xs uppercase tracking-widest">
+      <i data-lucide="folder-kanban" style="width:14px;height:14px"></i>
+      <span class="en">Things I have built</span><span class="vi" hidden>Những gì tôi đã làm</span>
+    </div>
+    <h2 class="text-2xl font-bold mt-2"><span class="en">My projects</span><span class="vi" hidden>Dự án của tôi</span></h2>
+    <p class="text-sm text-gray-500 mt-2 max-w-lg en">Selected projects from my HR and talent work. Tap a project to see its details.</p>
+    <p class="text-sm text-gray-500 mt-2 max-w-lg vi" hidden>Một số dự án tiêu biểu trong công việc nhân sự và tuyển dụng của tôi. Nhấn vào dự án để xem chi tiết.</p>
+
+    <div class="mt-6 flex items-center justify-between">
+      <h3 class="font-semibold flex items-center gap-2"><i data-lucide="briefcase" class="text-forest-light" style="width:16px;height:16px"></i><span class="en">HR</span><span class="vi" hidden>HR</span></h3>
+      <span class="font-mono text-[10px] text-gray-500">7 <span class="en">projects</span><span class="vi" hidden>dự án</span></span>
+    </div>
+    <div class="card mt-3 rounded-xl border border-white/10 bg-ink-card divide-y divide-white/5 overflow-hidden">
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="bar-chart-3" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">Recruitment Tracking Dashboard</span><span class="vi" hidden>Recruitment Tracking Dashboard</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Candidates and offers tracked across the full hiring funnel.</span><span class="vi" hidden>Theo dõi ứng viên và offer xuyên suốt phễu tuyển dụng.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div data-gal>
+<div class="flex flex-wrap gap-2 mb-3"><button type="button" class="gal-tab font-mono text-xs px-3 py-1.5 rounded-full border border-white/10 transition-colors duration-200 on" data-src="img/recruit-1.jpg" data-alt="Recruitment Tracker &amp; HR Dashboard: overview"><span class="en">Overview</span><span class="vi" hidden>Tổng quan</span></button><button type="button" class="gal-tab font-mono text-xs px-3 py-1.5 rounded-full border border-white/10 transition-colors duration-200" data-src="img/recruit-2.jpg" data-alt="Active requisition dashboard"><span class="en">Active requisitions</span><span class="vi" hidden>Yêu cầu đang mở</span></button><button type="button" class="gal-tab font-mono text-xs px-3 py-1.5 rounded-full border border-white/10 transition-colors duration-200" data-src="img/recruit-3.jpg" data-alt="Recruiters dashboard"><span class="en">Recruiters</span><span class="vi" hidden>Recruiter</span></button></div>
+<button type="button" class="gal-main block w-full rounded-lg overflow-hidden border border-white/10 bg-white cursor-zoom-in" aria-label="Zoom"><img class="gal-img w-full h-auto block" src="img/recruit-1.jpg" alt="Recruitment Tracker &amp; HR Dashboard: overview" loading="lazy"></button>
+<p class="font-mono text-[10px] text-gray-600 mt-1.5"><span class="en">Click the image to zoom</span><span class="vi" hidden>Bấm vào hình để phóng to</span></p>
+</div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">An Excel dashboard built with Claude and Gemini Pro that follows every candidate and offer from sourcing to hire, in three views.</span><span class="vi" hidden>Dashboard Excel xây dựng cùng Claude và Gemini Pro, theo dõi mọi ứng viên và offer từ tìm nguồn đến nhận việc, qua ba góc nhìn.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Overview: candidate database, open positions, active in process, hires, average candidates per role and top competitor source, with breakdowns by location, experience level and sourcing channel.</span><span class="vi" hidden>Tổng quan: cơ sở dữ liệu ứng viên, vị trí đang mở, ứng viên đang xử lý, số người nhận việc, số ứng viên trung bình mỗi vị trí và nguồn đối thủ lấy người nhiều nhất, kèm phân tích theo địa điểm, cấp bậc kinh nghiệm và kênh sourcing.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Active requisitions: open requisitions per business unit, the recruitment funnel and the monthly hiring trend.</span><span class="vi" hidden>Yêu cầu đang mở: số yêu cầu mở theo từng đơn vị kinh doanh, phễu tuyển dụng và xu hướng tuyển dụng theo tháng.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Recruiters: requisitions owned, open and filled per recruiter, with each recruiter's pipeline by stage.</span><span class="vi" hidden>Recruiter: số yêu cầu phụ trách, đang mở và đã đóng của từng recruiter, kèm pipeline theo giai đoạn của từng người.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Turns raw numbers into time-to-fill, time-to-hire and stage-by-stage conversion rates, and uses source performance to steer sourcing budget.</span><span class="vi" hidden>Chuyển số liệu thô thành time-to-fill, time-to-hire và tỷ lệ chuyển đổi từng giai đoạn, đồng thời dùng hiệu quả từng nguồn để điều hướng ngân sách sourcing.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">An AI screening layer cuts manual resume screening: ~50% less time on manual tasks.</span><span class="vi" hidden>Lớp sàng lọc bằng AI giúp giảm sàng lọc CV thủ công: giảm ~50% thời gian cho công việc thủ công.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Excel</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Claude</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Gemini Pro</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">EQuest Education Group</p>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="layout-dashboard" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">HR &amp; Workforce Dashboard</span><span class="vi" hidden>HR &amp; Workforce Dashboard</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Workforce planning and people risk in one HRBP view.</span><span class="vi" hidden>Hoạch định nhân lực và rủi ro nhân sự trong một góc nhìn HRBP.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div data-gal>
+<button type="button" class="gal-main block w-full rounded-lg overflow-hidden border border-white/10 bg-white cursor-zoom-in" aria-label="Zoom"><img class="gal-img w-full h-auto block" src="img/workforce.jpg" alt="HRBP dashboard: workforce planning and people risk" loading="lazy"></button>
+<p class="font-mono text-[10px] text-gray-600 mt-1.5"><span class="en">Click the image to zoom</span><span class="vi" hidden>Bấm vào hình để phóng to</span></p>
+</div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">An HRBP dashboard for workforce planning and people risk that links recruitment data with headcount and retention metrics.</span><span class="vi" hidden>Dashboard HRBP cho hoạch định nhân lực và rủi ro nhân sự, kết nối dữ liệu tuyển dụng với headcount và chỉ số giữ chân.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Headline KPIs: total headcount, voluntary attrition %, time to fill, eNPS, learning hours per FTE and internal fill rate.</span><span class="vi" hidden>Chỉ số chính: tổng headcount, tỷ lệ nghỉ việc tự nguyện, time to fill, eNPS, số giờ học tập trên mỗi FTE và tỷ lệ tuyển nội bộ.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Headcount &amp; FTE architecture: FTE mix (full-time, contractors, part-time, freelance) and open positions per business unit with a headcount-gap signal.</span><span class="vi" hidden>Cơ cấu headcount &amp; FTE: tỷ trọng FTE (toàn thời gian, contractor, bán thời gian, freelance) và vị trí đang mở theo đơn vị kinh doanh kèm tín hiệu thiếu hụt headcount.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Attrition &amp; retention dynamics: quarterly voluntary attrition trend and regrettable turnover of high potentials.</span><span class="vi" hidden>Biến động nghỉ việc &amp; giữ chân: xu hướng nghỉ việc tự nguyện theo quý và tỷ lệ mất nhân sự tiềm năng đáng tiếc.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Used directly to advise on workforce planning and to shape employee development and training plans.</span><span class="vi" hidden>Dùng trực tiếp để tư vấn hoạch định nhân lực và định hình kế hoạch phát triển, đào tạo nhân viên.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">HR analytics</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Dashboard</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">Freecracy</p>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="gift" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">HR Bonus Template</span><span class="vi" hidden>HR Bonus Template</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Points-based recruiter bonus, updated automatically.</span><span class="vi" hidden>Thưởng recruiter theo điểm, tự động cập nhật.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div data-gal>
+<button type="button" class="gal-main block w-full rounded-lg overflow-hidden border border-white/10 bg-white cursor-zoom-in" aria-label="Zoom"><img class="gal-img w-full h-auto block" src="img/bonus.jpg" alt="HR Bonus dashboard 2025" loading="lazy"></button>
+<p class="font-mono text-[10px] text-gray-600 mt-1.5"><span class="en">Click the image to zoom</span><span class="vi" hidden>Bấm vào hình để phóng to</span></p>
+</div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">A points-based bonus dashboard that updates automatically from the Master HR Bonus sheet.</span><span class="vi" hidden>Dashboard thưởng theo điểm, tự động cập nhật từ sheet Master HR Bonus.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Summarizes the yearly bonus, total points, number of candidates counted for bonus and average bonus per candidate.</span><span class="vi" hidden>Tổng hợp tổng thưởng năm, tổng điểm, số ứng viên được tính thưởng và mức thưởng trung bình trên mỗi ứng viên.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Breaks the bonus down by quarter and by recruiter, with a chart for each.</span><span class="vi" hidden>Phân tách thưởng theo quý và theo recruiter, mỗi phần có biểu đồ riêng.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Spreadsheet</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Dashboard</span></div>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="timer" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">Recruitment SLA &amp; SOP</span><span class="vi" hidden>Recruitment SLA &amp; SOP</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Clear response times and ownership between HR and hiring managers.</span><span class="vi" hidden>Thời gian phản hồi và trách nhiệm rõ ràng giữa HR và hiring manager.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div data-gal>
+<div class="flex flex-wrap gap-2 mb-3"><button type="button" class="gal-tab font-mono text-xs px-3 py-1.5 rounded-full border border-white/10 transition-colors duration-200 on" data-src="img/sla.jpg" data-alt="Recruitment Service Level Agreement document"><span class="en">SLA document</span><span class="vi" hidden>Văn bản SLA</span></button><button type="button" class="gal-tab font-mono text-xs px-3 py-1.5 rounded-full border border-white/10 transition-colors duration-200" data-src="img/sop.jpg" data-alt="Recruitment SOP workflow"><span class="en">SOP workflow</span><span class="vi" hidden>Quy trình SOP</span></button></div>
+<button type="button" class="gal-main block w-full rounded-lg overflow-hidden border border-white/10 bg-white cursor-zoom-in" aria-label="Zoom"><img class="gal-img w-full h-auto block" src="img/sla.jpg" alt="Recruitment Service Level Agreement document" loading="lazy"></button>
+<p class="font-mono text-[10px] text-gray-600 mt-1.5"><span class="en">Click the image to zoom</span><span class="vi" hidden>Bấm vào hình để phóng to</span></p>
+</div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">A Recruitment Service Level Agreement and workflow standard that sets response-time commitments, quality expectations and clear responsibilities between HR/TA and Hiring Managers.</span><span class="vi" hidden>Thỏa thuận cam kết dịch vụ tuyển dụng và chuẩn quy trình, quy định cam kết thời gian phản hồi, chất lượng đầu ra và trách nhiệm rõ ràng giữa HR/TA và Hiring Manager.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Removes bottlenecks, shortens time-to-fill and improves the candidate experience.</span><span class="vi" hidden>Loại bỏ điểm nghẽn, rút ngắn time-to-fill và nâng cao trải nghiệm ứng viên.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Defines the rules of the game: turnaround time (TAT), working days, SLA pause, and the ODC and project-based hiring models.</span><span class="vi" hidden>Định nghĩa luật chơi: thời gian phản hồi (TAT), ngày làm việc, tạm dừng SLA, và các mô hình tuyển dụng ODC và theo dự án.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Hiring SLA targets: 30 days Senior, 40 days Leader/Manager, 20 days Junior/Middle; 84% attainment.</span><span class="vi" hidden>Mục tiêu SLA: 30 ngày cho Senior, 40 ngày cho Leader/Manager, 20 ngày cho Junior/Middle; đạt 84%.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">The SOP flowchart maps every step from the job requisition to the offer, colour-coded by owner (Hiring Manager, HR, or both) with a response time on each step.</span><span class="vi" hidden>Sơ đồ SOP mô tả từng bước từ yêu cầu tuyển dụng đến offer, phân màu theo người phụ trách (Hiring Manager, HR hoặc cả hai) và có thời gian phản hồi cho từng bước.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">SLA</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">SOP</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Workflow</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">Freecracy</p>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="search-code" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">X-ray Research</span><span class="vi" hidden>X-ray Research</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Auto-generated Boolean search strings for faster sourcing.</span><span class="vi" hidden>Tự động sinh chuỗi tìm kiếm Boolean để sourcing nhanh hơn.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div class="proj-img rounded-lg border border-dashed border-white/15 bg-white/[0.02] py-8 flex flex-col items-center justify-center text-center p-4"><i data-lucide="image" class="text-gray-600" style="width:28px;height:28px"></i><span class="text-xs text-gray-500 mt-2"><span class="en">Project image coming soon</span><span class="vi" hidden>Hình ảnh dự án sẽ được cập nhật</span></span></div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">A tool that automatically generates Boolean search strings so recruiters can source candidates faster.</span><span class="vi" hidden>Công cụ tự động tạo chuỗi tìm kiếm Boolean giúp nhà tuyển dụng tìm ứng viên nhanh hơn.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Part of a wider AI and automation push that reduced manual, repetitive HR tasks by ~80%.</span><span class="vi" hidden>Nằm trong nỗ lực ứng dụng AI và tự động hóa rộng hơn, giúp giảm ~80% công việc HR thủ công, lặp lại.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Boolean search</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">AI</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">Freecracy</p>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="user-cog" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">Personal HR System</span><span class="vi" hidden>Personal HR System</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Internal assistant for labor-law and social-insurance questions.</span><span class="vi" hidden>Trợ lý nội bộ giải đáp luật lao động và bảo hiểm xã hội.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div class="proj-img rounded-lg border border-dashed border-white/15 bg-white/[0.02] py-8 flex flex-col items-center justify-center text-center p-4"><i data-lucide="image" class="text-gray-600" style="width:28px;height:28px"></i><span class="text-xs text-gray-500 mt-2"><span class="en">Project image coming soon</span><span class="vi" hidden>Hình ảnh dự án sẽ được cập nhật</span></span></div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">An internal HR assistant that answers employee questions on labor law and social insurance.</span><span class="vi" hidden>Trợ lý HR nội bộ giải đáp thắc mắc của nhân viên về luật lao động và bảo hiểm xã hội.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Cuts repetitive HR queries, contributing to the ~80% reduction in manual HR tasks.</span><span class="vi" hidden>Giảm các câu hỏi HR lặp lại, góp phần giảm ~80% công việc HR thủ công.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">AI</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Automation</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">Freecracy</p>
+</div>
+</div>
+</div>
+<div>
+<button type="button" class="acc-btn proj-row w-full flex items-center gap-4 p-4 text-left hover:bg-white/[0.04] active:bg-white/[0.02] transition-colors duration-200" aria-expanded="false"><span class="w-10 h-10 rounded-lg bg-forest/15 border border-forest/40 flex items-center justify-center flex-shrink-0"><i data-lucide="megaphone" class="text-forest-light" style="width:18px;height:18px"></i></span><span class="flex-1 min-w-0"><span class="block text-sm font-medium"><span class="en">Employer Branding Dashboard</span><span class="vi" hidden>Employer Branding Dashboard</span></span><span class="block text-xs text-gray-500 mt-0.5"><span class="en">Notion dashboard plus Google Apps Script tools.</span><span class="vi" hidden>Dashboard Notion cùng công cụ Google Apps Script.</span></span></span><span class="font-mono text-xs font-semibold text-forest-light flex items-center gap-1 flex-shrink-0"><span class="en">Click here</span><span class="vi" hidden>Xem chi tiết</span><i data-lucide="chevron-right" class="chev" style="width:14px;height:14px"></i></span></button>
+<div class="acc-body px-4 pb-5 pt-1" hidden>
+<div class="proj-img rounded-lg border border-dashed border-white/15 bg-white/[0.02] py-8 flex flex-col items-center justify-center text-center p-4"><i data-lucide="image" class="text-gray-600" style="width:28px;height:28px"></i><span class="text-xs text-gray-500 mt-2"><span class="en">Project image coming soon</span><span class="vi" hidden>Hình ảnh dự án sẽ được cập nhật</span></span></div>
+<div class="mt-4">
+<p class="text-sm text-gray-300 leading-relaxed"><span class="en">A Notion dashboard to run employer branding work, with Google Apps Script tools for employee notifications and event registration.</span><span class="vi" hidden>Dashboard Notion để vận hành hoạt động employer branding, kèm công cụ Google Apps Script cho thông báo nhân viên và đăng ký sự kiện.</span></p>
+<ul class="mt-3 space-y-2 text-sm text-gray-400"><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Supports branding campaigns on social media and university networks.</span><span class="vi" hidden>Hỗ trợ các chiến dịch branding trên mạng xã hội và mạng lưới trường đại học.</span></span></li><li class="flex gap-2"><i data-lucide="chevron-right" class="text-forest-light mt-0.5 flex-shrink-0" style="width:14px;height:14px"></i><span><span class="en">Event registration runs through a form built with Google Apps Script.</span><span class="vi" hidden>Đăng ký sự kiện chạy qua biểu mẫu xây dựng bằng Google Apps Script.</span></span></li></ul>
+<div class="mt-4 flex flex-wrap gap-1.5"><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Notion</span><span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">Google Apps Script</span></div>
+<p class="font-mono text-[11px] text-gray-600 mt-3">Freecracy · EQuest</p>
+</div>
+</div>
+</div>
+    </div>
+
+    <div class="mt-8 flex items-center justify-between">
+      <h3 class="font-semibold flex items-center gap-2"><i data-lucide="users-round" class="text-gray-500" style="width:16px;height:16px"></i><span class="en">Internal Activities</span><span class="vi" hidden>Hoạt động nội bộ</span></h3>
+    </div>
+    <div class="mt-3 rounded-xl border border-white/10 bg-ink-card p-4 flex items-center gap-4 flex-wrap">
+      <span class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0"><i data-lucide="party-popper" class="text-gray-500" style="width:18px;height:18px"></i></span>
+      <div class="flex-1 min-w-[180px]">
+        <div class="text-sm font-medium"><span class="en">Company events, engagement and culture projects</span><span class="vi" hidden>Sự kiện công ty, gắn kết và dự án văn hoá</span></div>
+        <div class="text-xs text-gray-500 mt-0.5"><span class="en">Details will be shared here.</span><span class="vi" hidden>Chi tiết sẽ được chia sẻ tại đây.</span></div>
+      </div>
+      <span class="font-mono text-[10px] tracking-wide uppercase px-3 py-1.5 rounded-full border border-dashed border-white/20 text-gray-500 flex-shrink-0"><span class="en">Coming soon</span><span class="vi" hidden>Sắp ra mắt</span></span>
+    </div>
+  </section>
+
+  <div id="lightbox" hidden class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"><img alt="" class="max-w-full max-h-full rounded-lg bg-white"></div>
+
+  <!-- ============ CONNECT ============ -->
+  <section id="connect" class="mt-16 mb-16">
+    <div class="card rounded-2xl border border-forest/30 bg-ink-card p-8 text-center">
+      <i data-lucide="send" class="text-forest-light mx-auto" style="width:22px;height:22px"></i>
+      <h2 class="text-2xl font-bold mt-3"><span class="en">Let's talk talent.</span><span class="vi" hidden>Cùng trao đổi về nhân tài.</span></h2>
+      <p class="text-gray-400 max-w-md mx-auto mt-2 text-sm en">Open to conversations on talent acquisition, workforce planning and HR transformation.</p>
+      <p class="text-gray-400 max-w-md mx-auto mt-2 text-sm vi" hidden>Sẵn sàng trao đổi về tuyển dụng, hoạch định nhân lực và chuyển đổi HR.</p>
+
+      <div class="flex flex-wrap gap-3 justify-center mt-6">
+        <a href="https://www.linkedin.com/in/tuantran160795/" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-forest text-ink font-medium text-sm hover:bg-forest-light transition-colors">
+          <i data-lucide="linkedin" style="width:15px;height:15px"></i>
+          <span class="en">Connect on LinkedIn</span><span class="vi" hidden>Kết nối trên LinkedIn</span>
+        </a>
+        <span class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 font-mono text-sm">
+          <i data-lucide="mail" style="width:14px;height:14px" class="text-gray-400"></i>
+          <span id="email-text">tatanhtuan.tran@gmail.com</span>
+          <button id="copy-email" type="button" class="ml-1 px-2.5 py-1 rounded-full bg-forest/20 text-forest-light text-xs hover:bg-forest/30">
+            <span class="en">Copy</span><span class="vi" hidden>Sao chép</span>
+          </button>
+        </span>
+      </div>
+      <p class="font-mono text-xs text-gray-600 mt-6 en">References available upon request</p>
+      <p class="font-mono text-xs text-gray-600 mt-6 vi" hidden>Thông tin người tham chiếu sẵn sàng cung cấp khi được yêu cầu</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t border-white/5 py-6 text-center font-mono text-xs text-gray-600" style="padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))">
+  <span class="en">Updated October 2026</span>
+  <span class="vi" hidden>Cập nhật tháng 10/2026</span>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.321.0/dist/umd/lucide.js"></script>
+<script>
+  lucide.createIcons();
+
+  (function(){
+    function apply(lang){
+      document.querySelectorAll('.en').forEach(function(el){ el.hidden = (lang !== 'en'); });
+      document.querySelectorAll('.vi').forEach(function(el){ el.hidden = (lang !== 'vi'); });
+      document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+      document.getElementById('btn-vi').setAttribute('aria-pressed', lang === 'vi');
+      document.getElementById('btn-en').className = (lang==='en') ? 'px-3 py-1.5 bg-forest text-ink' : 'px-3 py-1.5 text-gray-400';
+      document.getElementById('btn-vi').className = (lang==='vi') ? 'px-3 py-1.5 bg-forest text-ink' : 'px-3 py-1.5 text-gray-400';
+      try{ localStorage.setItem('lang', lang); }catch(e){}
+    }
+    var saved = 'en';
+    try{ saved = localStorage.getItem('lang') || 'en'; }catch(e){}
+    apply(saved);
+    document.getElementById('btn-en').addEventListener('click', function(){ apply('en'); });
+    document.getElementById('btn-vi').addEventListener('click', function(){ apply('vi'); });
+
+    var chips = document.querySelectorAll('#skill-filter .chip');
+    var skillCards = document.querySelectorAll('[data-group]');
+    chips.forEach(function(chip){
+      chip.addEventListener('click', function(){
+        chips.forEach(function(c){ c.classList.remove('chip-active'); });
+        chip.classList.add('chip-active');
+        var filter = chip.getAttribute('data-filter');
+        skillCards.forEach(function(card){
+          card.hidden = !(filter === 'all' || card.getAttribute('data-group') === filter);
+        });
+      });
+    });
+
+    var copyBtn = document.getElementById('copy-email');
+    copyBtn.addEventListener('click', function(){
+      var email = document.getElementById('email-text').textContent;
+      var done = function(){
+        var original = copyBtn.innerHTML;
+        var lang = (localStorage.getItem('lang') || 'en');
+        copyBtn.textContent = (lang === 'vi') ? 'Đã chép' : 'Copied';
+        setTimeout(function(){ copyBtn.innerHTML = original; }, 1600);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).then(done).catch(function(){
+          var r=document.createRange(); r.selectNode(document.getElementById('email-text'));
+          window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+          done();
+        });
+      } else {
+        var r=document.createRange(); r.selectNode(document.getElementById('email-text'));
+        window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+        done();
+      }
+    });
+
+    var toggleBtn = document.getElementById('toggle-offer-tool');
+    var toolPanel = document.getElementById('offer-tool');
+    toggleBtn.addEventListener('click', function(){
+      toolPanel.hidden = !toolPanel.hidden;
+      if(!toolPanel.hidden){
+        toolPanel.scrollIntoView({behavior:'smooth', block:'nearest'});
+        recalc();
+      }
+    });
+
+    // ================= Offer Comparison engine =================
+    var CA = '#56C98A', CB = '#7FB0F0';
+    var PRIORITY_WEIGHTS = [51.613, 25.806, 12.903, 6.452, 3.226];
+    var currentLang = 'en';
+    try{ currentLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+
+    function L(en, vi){ return currentLang === 'vi' ? vi : en; }
+    function S(en, vi){ return '<span class="en">' + en + '</span><span class="vi" hidden>' + vi + '</span>'; }
+    function $(id){ return document.getElementById(id); }
+    function clamp(x, lo, hi){ return Math.max(lo, Math.min(hi, x)); }
+    function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+    function esc(t){ return String(t).replace(/[&<>"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); }
+    function sgn(n){ return n > 0 ? '+' : ''; }
+
+    // Rank-Order Centroid weights: w_i = (1/n) * sum_{j=i..n} 1/j
+    function rocWeights(n){
+      var w = [];
+      for(var i=1;i<=n;i++){ var s = 0; for(var j=i;j<=n;j++) s += 1/j; w.push(s/n); }
+      return w;
+    }
+
+    var LK_EN = '1 none · 2 limited · 3 average · 4 good · 5 high';
+    var LK_VI = '1: không có · 2: hạn chế · 3: trung bình · 4: khá · 5: cao';
+
+    var OPT = {
+      region: [
+        { v:'1', en:'Region I',   vi:'Vùng I',   s:10 },
+        { v:'2', en:'Region II',  vi:'Vùng II',  s:7.5 },
+        { v:'3', en:'Region III', vi:'Vùng III', s:5 },
+        { v:'4', en:'Region IV',  vi:'Vùng IV',  s:2.5 }
+      ],
+      span: [
+        { v:'0', en:'No direct reports', vi:'Không quản lý ai', s:0 },
+        { v:'1', en:'1–3 people',        vi:'1–3 người',        s:4 },
+        { v:'2', en:'3–5 people',        vi:'3–5 người',        s:7 },
+        { v:'3', en:'Over 5 people',     vi:'Trên 5 người',     s:10 }
+      ],
+      size: [
+        { v:'1', en:'Under 50 people',   vi:'Dưới 50 người',     s:2.5 },
+        { v:'2', en:'50–200 people',     vi:'50–200 người',      s:5 },
+        { v:'3', en:'200–1,000 people',  vi:'200–1.000 người',   s:7.5 },
+        { v:'4', en:'Over 1,000 people', vi:'Trên 1.000 người',  s:10 }
+      ],
+      btype: [
+        { v:'1', en:'Startup',  vi:'Startup',  s:2.5 },
+        { v:'2', en:'SME',      vi:'SME',      s:5 },
+        { v:'3', en:'Big Corp', vi:'Big Corp', s:7.5 },
+        { v:'4', en:'MNC',      vi:'MNC',      s:10 }
+      ],
+      days: [
+        { v:'5',   en:'5 days',   vi:'5 ngày',   s:10 },
+        { v:'5.5', en:'5.5 days', vi:'5,5 ngày', s:6.5 },
+        { v:'6',   en:'6 days',   vi:'6 ngày',   s:3 }
+      ],
+      level: [
+        { v:'0', en:'Internship', vi:'Internship', r:0 },
+        { v:'1', en:'Junior',     vi:'Junior',     r:1 },
+        { v:'2', en:'Middle',     vi:'Middle',     r:2 },
+        { v:'3', en:'Senior',     vi:'Senior',     r:3 },
+        { v:'4', en:'Leader',     vi:'Leader',     r:4 },
+        { v:'5', en:'Manager',    vi:'Manager',    r:4 },
+        { v:'6', en:'Director',   vi:'Director',   r:5 }
+      ]
+    };
+
+    function likertCrit(id, en, vi, hen, hvi){
+      return { id:id, type:'likert', en:en, vi:vi, hen:hen + ' (' + LK_EN + ')', hvi:hvi + ' (' + LK_VI + ')' };
+    }
+
+    var GROUPS = [
+      { id:'opportunity', en:'Opportunity', vi:'Cơ hội', crits:[
+        { id:'level', type:'level', en:'Title vs. current role', vi:'Chức danh (Title) so với hiện tại', hen:'Offered job title, and level compared with the candidate\'s current level', hvi:'Chức danh được offer và level so với level hiện tại của ứng viên' },
+        { id:'span',  type:'select', opt:'span', en:'Management scope', vi:'Phạm vi quản lý', hen:'Number of direct reports', hvi:'Số lượng nhân sự cấp dưới trực tiếp' },
+        likertCrit('path',  'Clear career path', 'Lộ trình thăng tiến rõ ràng', 'How clearly defined the career ladder is', 'Mức độ định hình rõ ràng của nấc thang nghề nghiệp'),
+        likertCrit('learn', 'Learning & development', 'Cơ hội học hỏi, phát triển', 'Room to build expertise and new skills', 'Không gian để trau dồi chuyên môn và kỹ năng mới')
+      ]},
+      { id:'rewards', en:'Rewards', vi:'Đãi ngộ', crits:[
+        { id:'gross', type:'money', rel:1, en:'Monthly gross salary', vi:'Lương gross mỗi tháng', hen:'Official salary after probation', hvi:'Mức lương chính thức sau quá trình thử việc' },
+        { id:'bhxh',  type:'money', rel:1, en:'Social-insurance salary', vi:'Lương đóng BHXH', hen:'Salary base used for insurance. Leave blank to skip', hvi:'Mức lương dùng để đóng bảo hiểm. Bỏ trống để bỏ qua' },
+        { id:'allow', type:'money', rel:1, en:'Tax-free allowance / month', vi:'Phụ cấp không chịu thuế / tháng', hen:'Part of gross within legal limits, e.g. lunch allowance', hvi:'Các khoản nằm trong lương gross theo quy định (ví dụ: phụ cấp ăn trưa)' },
+        { id:'m13',   type:'dec',   rel:1, ph:'0', en:'13th-month salary, fixed bonus', vi:'Tháng lương 13, thưởng cố định', hen:'Months of salary received as fixed bonus per year, e.g. 1 or 1.5', hvi:'Số tháng lương nhận thêm cố định mỗi năm, ví dụ 1 hoặc 1,5' },
+        { id:'perf',  type:'money', rel:1, en:'Estimated performance bonus / year', vi:'Thưởng hiệu suất ước tính / năm', hen:'Non-fixed bonuses based on work results. Enter a prudent figure', hvi:'Các khoản thưởng không cố định, dựa trên kết quả công việc. Nhập mức thận trọng' },
+        { id:'other', type:'money', rel:1, en:'Other benefits in cash value / year', vi:'Phúc lợi khác quy ra tiền / năm', hen:'Health insurance, learning budget, travel, etc.', hvi:'Bảo hiểm sức khoẻ, ngân sách hỗ trợ học tập, du lịch...' },
+        { id:'prob',  type:'prob', en:'Probation', vi:'Thử việc', hen:'Months, and % of salary paid (minimum 85%)', hvi:'Số tháng và % lương thử việc (tối thiểu 85%)' }
+      ]},
+      { id:'organization', en:'Organization', vi:'Tổ chức', crits:[
+        { id:'size',  type:'select', opt:'size', en:'Company size', vi:'Quy mô công ty', hen:'Headcount of the organization', hvi:'Số lượng nhân sự của tổ chức' },
+        { id:'btype', type:'select', opt:'btype', en:'Business type', vi:'Loại hình doanh nghiệp', hen:'Operating model', hvi:'Mô hình hoạt động' },
+        likertCrit('biz', 'Business performance', 'Tình hình kinh doanh', 'Market position and growth outlook of the business', 'Trạng thái hoạt động và khả năng tăng trưởng của doanh nghiệp trên thị trường'),
+        likertCrit('fit', 'Fit with product & company values', 'Sự phù hợp với sản phẩm, giá trị công ty', 'Alignment between personal direction and the organization\'s core', 'Mức độ tương đồng giữa định hướng cá nhân và cốt lõi của tổ chức')
+      ]},
+      { id:'work', en:'Work', vi:'Công việc', crits:[
+        { id:'days',    type:'select', opt:'days', en:'Working days per week', vi:'Số ngày làm việc mỗi tuần', hen:'Weekly working time', hvi:'Khối lượng thời gian làm việc' },
+        { id:'commute', type:'abs', ph:'0', fn:function(v){ return clamp(10 - v/12, 0, 10); }, unen:'min', unvi:'phút', en:'Daily commute time', vi:'Thời gian đi lại mỗi ngày', hen:'Total minutes, round trip', hvi:'Tổng số phút đi và về' },
+        { id:'wfh',     type:'abs', ph:'0', fn:function(v){ return clamp(v*2, 0, 10); }, unen:'days', unvi:'ngày', en:'Remote work days per week', vi:'Số ngày làm việc từ xa (WFH)', hen:'Flexibility of workplace', hvi:'Khả năng linh hoạt về không gian làm việc' },
+        { id:'leave',   type:'abs', ph:'12', fn:function(v){ return clamp(v - 10, 0, 10); }, unen:'days', unvi:'ngày', en:'Annual leave days', vi:'Số ngày phép năm', hen:'Paid leave (legal minimum 12 days)', hvi:'Quỹ thời gian nghỉ phép có lương (tối thiểu 12 ngày theo luật)' },
+        likertCrit('interest', 'Interest in the work', 'Mức độ hứng thú với công việc', 'How much the candidate likes the nature of the work', 'Sự yêu thích đối với bản chất công việc đảm nhận')
+      ]},
+      { id:'people', en:'People', vi:'Con người', crits:[
+        likertCrit('mgr',   'Direct manager', 'Quản lý trực tiếp', 'Leadership style and support from the manager', 'Phong cách lãnh đạo và sự hỗ trợ từ cấp trên'),
+        likertCrit('cult',  'Colleagues & culture', 'Đồng nghiệp, văn hoá', 'Team cohesion, work environment and interaction', 'Sự gắn kết, môi trường làm việc và tương tác nội bộ'),
+        likertCrit('trust', 'Trust in leadership', 'Niềm tin vào ban lãnh đạo', 'Confidence in the direction and decisions of leaders', 'Sự tín nhiệm đối với định hướng và quyết định của những người đứng đầu')
+      ]}
+    ];
+
+    var GROUP_BY_ID = {};
+    GROUPS.forEach(function(g){ GROUP_BY_ID[g.id] = g; });
+    var REW = GROUP_BY_ID.rewards;
+    var GROSS = REW.crits[0];
+
+    // ---------- priority ranking (step 01) ----------
+    var PRIORITY_NAMES = {
+      rewards:      { en: 'Rewards (pay &amp; benefits)',            vi: 'Đãi Ngộ' },
+      opportunity:  { en: 'Opportunity (growth)',                     vi: 'Cơ Hội' },
+      work:         { en: 'Work (role &amp; scope)',                  vi: 'Công Việc' },
+      people:       { en: 'People (team &amp; manager)',              vi: 'Con Người' },
+      organization: { en: 'Organization (culture &amp; stability)',   vi: 'Tổ Chức' }
+    };
+    var priorityOrder = ['rewards', 'opportunity', 'work', 'people', 'organization'];
+    var expandedCats = {};
+
+    function renderPriorityList(){
+      var list = $('priority-list');
+      if(!list) return;
+      list.innerHTML = '';
+      priorityOrder.forEach(function(id, idx){
+        var weight = PRIORITY_WEIGHTS[idx];
+        var criteria = GROUP_BY_ID[id].crits;
+        var rocs = rocWeights(criteria.length);
+        var expanded = !!expandedCats[id];
+
+        var wrap = document.createElement('div');
+        wrap.className = 'rounded-lg border border-white/10 bg-white/[0.02] overflow-hidden';
+
+        var header = document.createElement('div');
+        header.className = 'flex items-center gap-3 px-3 py-2.5';
+        header.innerHTML =
+          '<button type="button" data-expand="' + id + '" class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-white transition-colors duration-200 flex-shrink-0"><i data-lucide="chevron-right" style="width:14px;height:14px;transition:transform .2s;' + (expanded ? 'transform:rotate(90deg);' : '') + '"></i></button>' +
+          '<span class="font-mono text-xs w-6 h-6 rounded-full bg-forest/15 border border-forest/40 text-forest-light flex items-center justify-center flex-shrink-0">' + (idx+1) + '</span>' +
+          '<span class="text-sm flex-1">' + L(PRIORITY_NAMES[id].en, PRIORITY_NAMES[id].vi) + '</span>' +
+          '<span class="font-mono text-sm font-semibold text-forest-light w-16 text-right">' + weight.toFixed(3) + '%</span>' +
+          '<div class="flex flex-col gap-0.5 flex-shrink-0">' +
+            '<button type="button" data-dir="up" data-id="' + id + '" class="w-5 h-5 flex items-center justify-center rounded hover:bg-white/10 transition-colors duration-200 text-gray-400' + (idx===0 ? ' opacity-30 pointer-events-none' : '') + '"><i data-lucide="chevron-up" style="width:13px;height:13px"></i></button>' +
+            '<button type="button" data-dir="down" data-id="' + id + '" class="w-5 h-5 flex items-center justify-center rounded hover:bg-white/10 transition-colors duration-200 text-gray-400' + (idx===priorityOrder.length-1 ? ' opacity-30 pointer-events-none' : '') + '"><i data-lucide="chevron-down" style="width:13px;height:13px"></i></button>' +
+          '</div>';
+        wrap.appendChild(header);
+
+        var body = document.createElement('div');
+        body.hidden = !expanded;
+        body.className = 'border-t border-white/10 bg-ink/40';
+        var rows = criteria.map(function(crit, i){
+          var fin = rocs[i] * weight / 100;
+          return '<tr class="border-b border-white/5 last:border-0">' +
+            '<td class="py-1.5 pl-9 pr-2 text-gray-300">' + L(esc(crit.en), esc(crit.vi)) + '</td>' +
+            '<td class="py-1.5 px-2 text-right text-gray-500 font-mono">' + (rocs[i]*100).toFixed(2) + '%</td>' +
+            '<td class="py-1.5 pr-3 text-right text-forest-light font-mono font-medium">' + fin.toFixed(3) + '%</td>' +
+          '</tr>';
+        }).join('');
+        body.innerHTML =
+          '<table class="w-full text-xs">' +
+            '<thead><tr class="text-[10px] uppercase tracking-wide text-gray-500">' +
+              '<th class="py-1.5 pl-9 pr-2 text-left font-medium">' + L('Criterion', 'Tiêu chí') + '</th>' +
+              '<th class="py-1.5 px-2 text-right font-medium">ROC</th>' +
+              '<th class="py-1.5 pr-3 text-right font-medium">' + L('Final weight', 'Trọng số cuối') + '</th>' +
+            '</tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>';
+        wrap.appendChild(body);
+        list.appendChild(wrap);
+      });
+      if(window.lucide) lucide.createIcons();
+
+      list.querySelectorAll('button[data-dir]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var id = btn.getAttribute('data-id');
+          var dir = btn.getAttribute('data-dir');
+          var i = priorityOrder.indexOf(id);
+          var j = dir === 'up' ? i - 1 : i + 1;
+          if(j < 0 || j >= priorityOrder.length) return;
+          var tmp = priorityOrder[i]; priorityOrder[i] = priorityOrder[j]; priorityOrder[j] = tmp;
+          renderPriorityList();
+          if(window.__engineReady) recalc();
+        });
+      });
+      list.querySelectorAll('button[data-expand]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var id = btn.getAttribute('data-expand');
+          expandedCats[id] = !expandedCats[id];
+          renderPriorityList();
+        });
+      });
+    }
+
+    // ---------- comparison form (step 02) ----------
+    function optionsHtml(name){
+      return '<option value="" data-en="—" data-vi="—">—</option>' + OPT[name].map(function(o){
+        return '<option value="' + o.v + '" data-en="' + o.en + '" data-vi="' + o.vi + '">' + L(o.en, o.vi) + '</option>';
+      }).join('');
+    }
+
+    function ctl(c, s){
+      var id = s + '-' + c.id;
+      var cls = 'fld fld-' + s;
+      switch(c.type){
+        case 'money':
+          return '<input type="text" inputmode="numeric" id="' + id + '" placeholder="0" class="' + cls + ' money-in" autocomplete="off">';
+        case 'dec':
+        case 'abs':
+          return '<input type="text" inputmode="decimal" id="' + id + '" placeholder="' + (c.ph || '0') + '" class="' + cls + ' dec-in" autocomplete="off">';
+        case 'select':
+          return '<select id="' + id + '" class="' + cls + '">' + optionsHtml(c.opt) + '</select>';
+        case 'likert':
+          return '<div class="lk-wrap" id="' + id + '" data-val="">' + [1,2,3,4,5].map(function(n){
+            return '<button type="button" data-n="' + n + '" class="lk lk-' + s + '">' + n + '</button>';
+          }).join('') + '</div>';
+        case 'prob':
+          return '<div class="pair-2">' +
+            '<input type="text" inputmode="decimal" id="' + id + '-m" placeholder="' + L('months', 'tháng') + '" class="' + cls + ' dec-in" autocomplete="off">' +
+            '<input type="text" inputmode="decimal" id="' + id + '-p" placeholder="% (≥85)" class="' + cls + ' dec-in" autocomplete="off">' +
+          '</div>';
+        case 'level':
+          return '<div class="stack-2">' +
+            '<input type="text" id="' + id + '-t" placeholder="' + L('Job title offered', 'Chức danh được offer') + '" class="' + cls + '" style="text-align:left" autocomplete="off">' +
+            '<select id="' + id + '-l" class="' + cls + '">' + optionsHtml('level') + '</select>' +
+          '</div>';
+      }
+      return '';
+    }
+
+    function buildForm(){
+      var html = '';
+      html += '<div class="row-grid px-4 py-3 border-b border-white/10 bg-white/[0.02]">' +
+        '<div class="c-label hidden md:block font-mono text-[11px] uppercase tracking-wider text-gray-500">' + S('Criteria', 'Tiêu chí') + '</div>' +
+        '<div><input type="text" id="label-b" value="Competitor offer" class="hdr-in" style="color:' + CB + '"><div class="font-mono text-[10px] uppercase tracking-wide text-gray-500">' + S('Company name', 'Tên công ty') + '</div></div>' +
+        '<div class="c-a" style="--py:.75rem"><input type="text" id="label-a" value="Our company" class="hdr-in" style="color:' + CA + '"><div class="font-mono text-[10px] uppercase tracking-wide text-gray-500">' + S('Company name', 'Tên công ty') + '</div></div>' +
+        '<div class="c-var hidden md:block font-mono text-[11px] uppercase tracking-wider text-gray-500">' + S('Variance (ours − competitor)', 'Chênh lệch (ta − đối thủ)') + '</div>' +
+      '</div>';
+      GROUPS.forEach(function(g){
+        html += '<div class="border-b border-white/10 last:border-0">' +
+          '<div class="flex items-center justify-between px-4 pt-4 pb-1">' +
+            '<h4 class="font-semibold">' + S(g.en, g.vi) + '</h4>' +
+            '<span class="font-mono text-[10px] uppercase tracking-widest text-gray-500">' + g.en + '</span>' +
+          '</div>';
+        g.crits.forEach(function(c){
+          html += '<div class="row-grid px-4 py-2.5">' +
+            '<div class="c-label"><div class="text-sm">' + S(esc(c.en), esc(c.vi)) + '</div>' +
+              '<div class="text-xs text-gray-500 mt-0.5">' + S(esc(c.hen), esc(c.hvi)) + '</div></div>' +
+            '<div>' + ctl(c, 'b') + '</div>' +
+            '<div class="c-a">' + ctl(c, 'a') + '</div>' +
+            '<div class="c-var font-mono text-xs" id="var-' + c.id + '">—</div>' +
+          '</div>';
+        });
+        html += '</div>';
+      });
+      $('cmp-form').innerHTML = html;
+
+      // candidate level select
+      $('cand-level').innerHTML = optionsHtml('level');
+    }
+
+    function relabelOptions(){
+      document.querySelectorAll('#offer-tool option[data-en]').forEach(function(o){
+        o.textContent = currentLang === 'vi' ? o.getAttribute('data-vi') : o.getAttribute('data-en');
+      });
+      document.querySelectorAll('#cmp-form input[id$="-m"]').forEach(function(el){ el.placeholder = L('months', 'tháng'); });
+      document.querySelectorAll('#cmp-form input[id$="-t"]').forEach(function(el){ el.placeholder = L('Job title offered', 'Chức danh được offer'); });
+    }
+    function syncLangVisibility(){
+      document.querySelectorAll('#offer-tool .en').forEach(function(el){ el.hidden = (currentLang !== 'en'); });
+      document.querySelectorAll('#offer-tool .vi').forEach(function(el){ el.hidden = (currentLang !== 'vi'); });
+    }
+
+    // ---------- reading values ----------
+    function readDec(id){
+      var t = ($(id).value || '').replace(',', '.').trim();
+      if(t === '') return null;
+      var v = parseFloat(t);
+      return isNaN(v) ? null : v;
+    }
+    function raw(s, c){
+      var id = s + '-' + c.id;
+      switch(c.type){
+        case 'money':
+          var t = $(id).value.replace(/[^0-9]/g, '');
+          if(t === '') return null;
+          return parseInt(t, 10);
+        case 'dec':
+        case 'abs':
+          return readDec(id);
+        case 'select':
+          return $(id).value === '' ? null : $(id).value;
+        case 'likert':
+          var d = $(id).getAttribute('data-val');
+          return d ? parseInt(d, 10) : null;
+        case 'prob':
+          var p = readDec(id + '-p');
+          if(p === null) return null;
+          return { m: readDec(id + '-m'), p: p };
+        case 'level':
+          return $(id + '-l').value === '' ? null : $(id + '-l').value;
+      }
+      return null;
+    }
+
+    function optOf(name, v){
+      var list = OPT[name];
+      for(var i=0;i<list.length;i++){ if(list[i].v === v) return list[i]; }
+      return null;
+    }
+    function levelRank(v){ var o = optOf('level', v); return o ? o.r : null; }
+    function probScore(o){
+      var m = o.m === null ? 2 : o.m;
+      return clamp(o.p / 10 - Math.max(0, m - 2) * 0.5, 0, 10);
+    }
+
+    // returns [scoreA, scoreB] on a 0-10 scale, or null when the criterion is skipped
+    function pair(c, a, b){
+      switch(c.type){
+        case 'money':
+        case 'dec':
+          a = a || 0; b = b || 0;
+          var mx = Math.max(a, b);
+          if(mx <= 0) return null;
+          return [10 * a / mx, 10 * b / mx];
+        case 'abs':
+          if(a === null || b === null) return null;
+          return [c.fn(a), c.fn(b)];
+        case 'select':
+          if(a === null || b === null) return null;
+          return [optOf(c.opt, a).s, optOf(c.opt, b).s];
+        case 'likert':
+          if(a === null || b === null) return null;
+          return [(a - 1) * 2.5, (b - 1) * 2.5];
+        case 'prob':
+          if(a === null || b === null) return null;
+          return [probScore(a), probScore(b)];
+        case 'level':
+          var cur = $('cand-level').value === '' ? null : levelRank($('cand-level').value);
+          if(cur === null || a === null || b === null) return null;
+          return [clamp(5 + (levelRank(a) - cur) * 2.5, 0, 10), clamp(5 + (levelRank(b) - cur) * 2.5, 0, 10)];
+      }
+      return null;
+    }
+
+    function valText(c, v){
+      if(v === null || v === undefined) return '—';
+      switch(c.type){
+        case 'money': return fmt(v);
+        case 'dec': return String(v);
+        case 'abs': return v + ' ' + L(c.unen, c.unvi);
+        case 'select': var o = optOf(c.opt, v); return L(o.en, o.vi);
+        case 'likert': return v + '/5';
+        case 'prob': return (v.m === null ? '' : v.m + ' ' + L('mo', 'tháng') + ' · ') + v.p + '%';
+        case 'level': var lo = optOf('level', v); return L(lo.en, lo.vi);
+      }
+      return String(v);
+    }
+
+    function setVar(c, a, b, sc){
+      var el = $('var-' + c.id);
+      var l1 = '';
+      if(c.type === 'money' || c.type === 'dec'){
+        var x = a || 0, y = b || 0;
+        if(x > 0 || y > 0){
+          var d = x - y;
+          var p = y !== 0 ? (d / y * 100) : null;
+          l1 = sgn(d) + (c.type === 'money' ? fmt(d) : (Math.round(d * 10) / 10)) + (p !== null ? ' (' + sgn(p) + p.toFixed(1) + '%)' : '');
+        }
+      } else if(c.type === 'abs' && a !== null && b !== null){
+        var dd = a - b;
+        l1 = sgn(dd) + (Math.round(dd * 10) / 10);
+      }
+      if(!sc){ el.innerHTML = '<span class="text-gray-600">' + (l1 || '—') + '</span>'; return; }
+      var ds = sc[0] - sc[1];
+      var better = ds > 0.04, worse = ds < -0.04;
+      var col = better ? CA : (worse ? '#F87171' : '#9CA3AF');
+      var word = better ? L('Better', 'Tốt hơn') : (worse ? L('Worse', 'Tệ hơn') : L('Equal', 'Bằng nhau'));
+      el.innerHTML = '<div><span class="inline-block font-mono text-[10px] uppercase px-2 py-0.5 rounded-full" style="background:' + (better ? 'rgba(86,201,138,.15)' : (worse ? 'rgba(248,113,113,.15)' : 'rgba(255,255,255,.08)')) + ';color:' + col + '">' + word + '</span></div>' +
+        (l1 ? '<div class="mt-1" style="color:' + col + '">' + l1 + '</div>' : '') +
+        '<div class="text-[10px] text-gray-500">' + sgn(ds) + ds.toFixed(1) + ' ' + L('pts', 'điểm') + '</div>';
+    }
+
+    // ---------- evaluation ----------
+    function evaluate(){
+      var wmap = {};
+      priorityOrder.forEach(function(g, i){ wmap[g] = PRIORITY_WEIGHTS[i]; });
+      var totalCrit = 0, usedCrit = 0;
+      var groups = GROUPS.map(function(g){
+        var roc = rocWeights(g.crits.length), items = [], sum = 0;
+        g.crits.forEach(function(c, i){
+          totalCrit++;
+          var a = raw('a', c), b = raw('b', c), sc = pair(c, a, b);
+          setVar(c, a, b, sc);
+          if(sc){ usedCrit++; items.push({ c:c, g:g, a:a, b:b, sa:sc[0], sb:sc[1], roc:roc[i] }); sum += roc[i]; }
+        });
+        var W = wmap[g.id], ga = null, gb = null;
+        if(items.length){
+          ga = 0; gb = 0;
+          items.forEach(function(it){
+            var share = it.roc / sum;
+            ga += share * it.sa; gb += share * it.sb;
+            it.pa = W * share * it.sa / 10;
+            it.pb = W * share * it.sb / 10;
+          });
+        }
+        return { g:g, W:W, ga:ga, gb:gb, items:items };
+      });
+      var wIncl = 0, ta = 0, tb = 0;
+      groups.forEach(function(r){ if(r.ga !== null){ wIncl += r.W; ta += r.W * r.ga / 10; tb += r.W * r.gb / 10; } });
+      var res = { groups:groups, used:usedCrit, total:totalCrit, ta:null, tb:null };
+      if(wIncl > 0){ res.ta = ta * 100 / wIncl; res.tb = tb * 100 / wIncl; }
+      return res;
+    }
+
+    var PITCH = {
+      rewards:      { en: 'Present the total yearly income (gross × (12 + bonus months) + bonus + benefits) instead of the monthly salary alone.', vi: 'Trình bày tổng thu nhập cả năm (gross × (12 + số tháng thưởng) + thưởng + phúc lợi) thay vì chỉ lương tháng.' },
+      opportunity:  { en: 'Draw a concrete 6-12-24 month growth path and name the learning budget or mentor.', vi: 'Vẽ lộ trình phát triển cụ thể 6–12–24 tháng, nêu rõ ngân sách đào tạo hoặc người kèm cặp.' },
+      organization: { en: 'Stress stability, scale and how the company values match what the candidate cares about.', vi: 'Nhấn mạnh sự ổn định, quy mô và mức độ phù hợp giữa giá trị công ty với điều ứng viên quan tâm.' },
+      work:         { en: 'Highlight the day-to-day balance: working days, commute, remote days and leave.', vi: 'Nhấn mạnh sự cân bằng hằng ngày: số ngày làm, thời gian đi lại, ngày làm từ xa và ngày phép.' },
+      people:       { en: 'Let the candidate meet the future manager and teammates before deciding.', vi: 'Cho ứng viên gặp quản lý trực tiếp và đồng nghiệp tương lai trước khi quyết định.' }
+    };
+    var FIX = {
+      rewards:      { en: 'close the gap with a sign-on bonus, a higher allowance, or a written salary review after 6 months', vi: 'bù bằng thưởng ký kết, tăng phụ cấp hoặc cam kết review lương sau 6 tháng bằng văn bản' },
+      opportunity:  { en: 'commit in writing to the promotion path and learning plan', vi: 'cam kết bằng văn bản về lộ trình thăng tiến và kế hoạch đào tạo' },
+      organization: { en: 'share growth plans and transparent business numbers to build confidence', vi: 'chia sẻ kế hoạch tăng trưởng và số liệu kinh doanh minh bạch để tạo niềm tin' },
+      work:         { en: 'offer flexibility (remote days, flexible hours, commute support)', vi: 'đưa ra sự linh hoạt (ngày làm từ xa, giờ giấc linh động, hỗ trợ đi lại)' },
+      people:       { en: 'arrange a conversation with the direct manager and the team', vi: 'sắp xếp buổi trao đổi với quản lý trực tiếp và đội ngũ' }
+    };
+
+    function gname(g){ return L(g.en, g.vi); }
+
+    function annualCash(s){
+      var gross = raw(s, GROSS) || 0;
+      var m13 = raw(s, REW.crits[3]) || 0;
+      var perf = raw(s, REW.crits[4]) || 0;
+      var other = raw(s, REW.crits[5]) || 0;
+      return gross * (12 + m13) + perf + other;
+    }
+
+    function barRow(label, sub, va, vb){
+      var fa = va === null ? '—' : va.toFixed(1), fb = vb === null ? '—' : vb.toFixed(1);
+      var wa = va === null ? 0 : va * 10, wb = vb === null ? 0 : vb * 10;
+      return '<div class="grid grid-cols-[110px_1fr_36px] sm:grid-cols-[150px_1fr_40px] gap-x-3 gap-y-1 items-center mt-4 first:mt-0">' +
+        '<div class="row-span-2"><div class="text-sm">' + label + '</div><div class="font-mono text-[10px] text-gray-500">' + sub + '</div></div>' +
+        '<div class="h-2.5 rounded bg-white/5 overflow-hidden"><div style="width:' + wa + '%;height:100%;background:' + CA + ';transition:width .4s"></div></div>' +
+        '<div class="font-mono text-xs text-right">' + fa + '</div>' +
+        '<div class="h-2.5 rounded bg-white/5 overflow-hidden"><div style="width:' + wb + '%;height:100%;background:' + CB + ';transition:width .4s"></div></div>' +
+        '<div class="font-mono text-xs text-right">' + fb + '</div>' +
+      '</div>';
+    }
+
+    function renderResults(ev){
+      var box = $('cmp-results');
+      var nameA = esc($('label-a').value || 'Company A');
+      var nameB = esc($('label-b').value || 'Company B');
+      if(ev.ta === null){
+        box.innerHTML = '<div class="rounded-xl border border-dashed border-white/15 p-6 text-sm text-gray-500">' +
+          L('Fill in step 02 to see the score, group breakdown and talking points.', 'Hãy điền thông tin ở bước 02 để xem điểm số, điểm theo từng nhóm và gợi ý thuyết phục.') + '</div>';
+        return;
+      }
+      var d = ev.ta - ev.tb;
+      var winA = d >= 1, winB = d <= -1;
+      var cand = $('cand-name').value.trim();
+      var candRef = cand ? esc(cand) : L('the candidate', 'ứng viên');
+
+      // score cards (competitor left, our company right)
+      function scoreCard(nm, tot, col, win, tint){
+        return '<div class="rounded-xl border p-5 relative" style="border-color:' + (win ? col : 'rgba(255,255,255,.1)') + ';border-width:' + (win ? '2px' : '1px') + '">' +
+          (win ? '<span class="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-wide px-2.5 py-1 rounded-full" style="background:' + tint + ';color:' + col + '">' + L('Better fit', 'Phù hợp hơn') + '</span>' : '') +
+          '<div class="font-semibold">' + nm + '</div>' +
+          '<div class="mt-3 font-mono"><span class="text-5xl font-bold" style="color:' + col + '">' + tot.toFixed(1) + '</span><span class="text-gray-500 text-lg"> / 100</span></div>' +
+        '</div>';
+      }
+      var html = '<div class="grid sm:grid-cols-2 gap-4">' +
+        scoreCard(nameB, ev.tb, CB, winB, 'rgba(127,176,240,.15)') +
+        scoreCard(nameA, ev.ta, CA, winA, 'rgba(86,201,138,.15)') +
+      '</div>';
+
+      // total monthly gross salary container
+      var aa = annualCash('a'), ab = annualCash('b');
+      if(aa > 0 || ab > 0){
+        var ma = aa / 12, mb = ab / 12, dm = ma - mb, pm = mb > 0 ? dm / mb * 100 : null;
+        var gA = raw('a', GROSS) || 0, gB = raw('b', GROSS) || 0;
+        var tone = dm > 0 ? CA : (dm < 0 ? '#F87171' : '#9CA3AF');
+        html += '<div class="mt-4 rounded-xl border border-white/10 p-5">' +
+          '<div class="font-semibold">' + L('Total monthly gross salary', 'Tổng monthly gross salary') + '</div>' +
+          '<div class="grid sm:grid-cols-3 gap-4 mt-4 font-mono">' +
+            '<div><div class="text-[11px] text-gray-500 font-sans">' + nameB + '</div><div class="text-2xl font-bold mt-1" style="color:' + CB + '">' + fmt(mb) + '</div><div class="text-xs text-gray-500 mt-1">' + L('Base gross: ', 'Gross cơ bản: ') + fmt(gB) + '</div></div>' +
+            '<div class="sm:border-l sm:border-white/10 sm:pl-4"><div class="text-[11px] text-gray-500 font-sans">' + nameA + '</div><div class="text-2xl font-bold mt-1" style="color:' + CA + '">' + fmt(ma) + '</div><div class="text-xs text-gray-500 mt-1">' + L('Base gross: ', 'Gross cơ bản: ') + fmt(gA) + '</div></div>' +
+            '<div class="sm:border-l sm:border-white/10 sm:pl-4"><div class="text-[11px] text-gray-500 font-sans">' + L('Variance (ours − competitor)', 'Chênh lệch (ta − đối thủ)') + '</div><div class="text-2xl font-bold mt-1" style="color:' + tone + '">' + sgn(dm) + fmt(dm) + '</div><div class="text-xs mt-1" style="color:' + tone + '">' + (pm !== null ? sgn(pm) + pm.toFixed(1) + '%' : '—') + '</div></div>' +
+          '</div>' +
+          '<div class="text-xs text-gray-500 mt-3">' + L('Yearly cash (gross × (12 + bonus months) + performance bonus + cash benefits) ÷ 12.', 'Thu nhập tiền mặt cả năm (gross × (12 + số tháng thưởng) + thưởng hiệu suất + phúc lợi quy ra tiền) ÷ 12.') + '</div>' +
+        '</div>';
+      }
+
+      // verdict sentence
+      var verdict = winA ? L('is the better fit for', 'phù hợp hơn với') : (winB ? L('trails the competitor for', 'đang kém đối thủ với') : L('is neck and neck with the competitor for', 'ngang sức đối thủ với'));
+      html += '<div class="mt-4 rounded-xl p-4 text-sm leading-relaxed" style="background:rgba(47,143,91,.12);border:1px solid rgba(47,143,91,.3)"><b>' + nameA + '</b> ' + verdict + ' ' + candRef + ' ' + L('under the priorities set in step 01', 'theo bộ ưu tiên đã xếp ở bước 01') +
+        ' (' + ev.ta.toFixed(1) + ' ' + L('vs', 'so với') + ' ' + ev.tb.toFixed(1) + ').' +
+        '<div class="font-mono text-[10px] text-gray-500 mt-2">' + L('Criteria scored: ', 'Số tiêu chí được chấm: ') + ev.used + '/' + ev.total + '</div></div>';
+
+      // comparison table
+      function chip(diff, eps){
+        if(diff > eps) return '<span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded-full" style="background:rgba(86,201,138,.15);color:' + CA + '">' + L('Stronger', 'Mạnh hơn') + '</span>';
+        if(diff < -eps) return '<span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded-full" style="background:rgba(248,113,113,.15);color:#F87171">' + L('Behind', 'Kém hơn') + '</span>';
+        return '<span class="font-mono text-[10px] uppercase px-2 py-0.5 rounded-full bg-white/10 text-gray-400">' + L('Even', 'Ngang') + '</span>';
+      }
+      function vcol(d, eps){ return d > eps ? 'text-forest-light' : (d < -eps ? 'text-red-400' : 'text-gray-400'); }
+      function tr(label, vb, va, dtxt, dnum, eps, bold){
+        return '<tr class="border-b border-white/5 last:border-0' + (bold ? ' bg-white/[0.03] font-semibold' : '') + '">' +
+          '<td class="p-2.5">' + label + '</td>' +
+          '<td class="p-2.5 text-right font-mono" style="color:' + CB + '">' + vb + '</td>' +
+          '<td class="p-2.5 text-right font-mono border-l border-white/10" style="color:' + CA + '">' + va + '</td>' +
+          '<td class="p-2.5 text-right font-mono ' + vcol(dnum, eps) + '">' + dtxt + '</td>' +
+          '<td class="p-2.5 text-right">' + chip(dnum, eps) + '</td></tr>';
+      }
+      var rowsHtml = tr(L('Total score (/100)', 'Tổng điểm (/100)'), ev.tb.toFixed(1), ev.ta.toFixed(1), sgn(ev.ta - ev.tb) + (ev.ta - ev.tb).toFixed(1), ev.ta - ev.tb, 0.5, true);
+      priorityOrder.forEach(function(gid, i){
+        var r = ev.groups.filter(function(x){ return x.g.id === gid; })[0];
+        var label = '<span class="font-mono text-xs text-gray-500 mr-1">#' + (i + 1) + '</span>' + gname(r.g) + ' <span class="font-mono text-[10px] text-gray-500">' + r.W.toFixed(1) + '%</span>';
+        if(r.ga === null){
+          rowsHtml += '<tr class="border-b border-white/5"><td class="p-2.5">' + label + '</td><td class="p-2.5 text-right font-mono text-gray-600">—</td><td class="p-2.5 text-right font-mono text-gray-600 border-l border-white/10">—</td><td class="p-2.5 text-right text-gray-600 font-mono">—</td><td class="p-2.5"></td></tr>';
+        } else {
+          var dg = r.ga - r.gb;
+          rowsHtml += tr(label, r.gb.toFixed(1), r.ga.toFixed(1), sgn(dg) + dg.toFixed(1), dg, 0.25, false);
+        }
+      });
+      if(aa > 0 || ab > 0){
+        var dcash = aa - ab, pcash = ab > 0 ? dcash / ab * 100 : null;
+        rowsHtml += tr(L('Estimated yearly cash', 'Thu nhập tiền mặt ước tính cả năm'), fmt(ab), fmt(aa),
+          sgn(dcash) + fmt(dcash) + (pcash !== null ? ' (' + sgn(pcash) + pcash.toFixed(1) + '%)' : ''), dcash, 0, false);
+      }
+      html += '<div class="mt-4 rounded-xl border border-white/10 overflow-x-auto"><table class="w-full text-sm">' +
+        '<thead><tr class="text-left text-[11px] uppercase tracking-wide text-gray-500 border-b border-white/10">' +
+          '<th class="p-2.5 font-medium">' + L('Comparison', 'So sánh') + '</th>' +
+          '<th class="p-2.5 font-medium text-right" style="color:' + CB + '">' + nameB + '</th>' +
+          '<th class="p-2.5 font-medium text-right border-l border-white/10" style="color:' + CA + '">' + nameA + '</th>' +
+          '<th class="p-2.5 font-medium text-right">' + L('Variance', 'Chênh lệch') + '</th>' +
+          '<th class="p-2.5 font-medium text-right">' + L('Status', 'Đánh giá') + '</th>' +
+        '</tr></thead><tbody>' + rowsHtml + '</tbody></table></div>';
+
+      // group bars (in priority order)
+      html += '<div class="mt-4 rounded-xl border border-white/10 p-5">' +
+        '<div class="font-semibold">' + L('Score by group', 'Điểm theo từng nhóm') + ' <span class="font-mono text-xs text-gray-500">(0–10)</span></div><div class="mt-4">';
+      priorityOrder.forEach(function(gid){
+        var r = ev.groups.filter(function(x){ return x.g.id === gid; })[0];
+        html += barRow(gname(r.g), L('Weight ', 'Tỷ trọng ') + r.W.toFixed(3) + '%', r.ga, r.gb);
+      });
+      html += '</div><div class="flex gap-4 mt-5 text-xs text-gray-400">' +
+        '<span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:' + CA + '"></i> ' + nameA + '</span>' +
+        '<span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:' + CB + '"></i> ' + nameB + '</span></div></div>';
+
+      // talking points
+      var all = [];
+      ev.groups.forEach(function(r){ r.items.forEach(function(it){ all.push(it); }); });
+      var strengths = all.filter(function(it){ return it.pa - it.pb > 0.05; }).sort(function(x, y){ return (y.pa - y.pb) - (x.pa - x.pb); }).slice(0, 3);
+      var gaps = all.filter(function(it){ return it.pb - it.pa > 0.05; }).sort(function(x, y){ return (y.pb - y.pa) - (x.pb - x.pa); }).slice(0, 3);
+
+      function line(it, extra){
+        var pts = Math.abs(it.pa - it.pb).toFixed(1);
+        return '<li class="flex gap-2"><span class="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:' + extra.dot + '"></span><span><b>' + L(esc(it.c.en), esc(it.c.vi)) + '</b>: ' +
+          nameA + ' ' + esc(valText(it.c, it.a)) + ' ' + L('vs', 'so với') + ' ' + nameB + ' ' + esc(valText(it.c, it.b)) +
+          ' <span class="font-mono text-xs text-gray-500">(' + extra.sign + pts + ' ' + L('pts of 100', 'điểm trên 100') + ')</span>' +
+          (extra.tail ? ' &mdash; ' + extra.tail : '') + '</span></li>';
+      }
+
+      var top = GROUP_BY_ID[priorityOrder[0]];
+      var topR = ev.groups.filter(function(x){ return x.g.id === top.id; })[0];
+      var topTxt;
+      if(topR.ga === null) topTxt = L('The candidate\'s #1 priority is ', 'Ưu tiên số 1 của ứng viên là ') + '<b>' + gname(top) + '</b> ' + L('— enter its criteria to see how you stand.', '— hãy nhập các tiêu chí của nhóm này để biết vị thế của bạn.');
+      else if(topR.ga >= topR.gb) topTxt = L('The candidate\'s #1 priority is ', 'Ưu tiên số 1 của ứng viên là ') + '<b>' + gname(top) + '</b> (' + PRIORITY_WEIGHTS[0].toFixed(1) + '%). ' + nameA + ' ' + L('leads there', 'đang dẫn trước ở nhóm này') + ' (' + topR.ga.toFixed(1) + ' ' + L('vs', 'so với') + ' ' + topR.gb.toFixed(1) + '). ' + L('Open the conversation with this group.', 'Hãy mở đầu cuộc trao đổi bằng nhóm này.');
+      else topTxt = L('The candidate\'s #1 priority is ', 'Ưu tiên số 1 của ứng viên là ') + '<b>' + gname(top) + '</b> (' + PRIORITY_WEIGHTS[0].toFixed(1) + '%). ' + nameA + ' ' + L('trails there', 'đang kém ở nhóm này') + ' (' + topR.ga.toFixed(1) + ' ' + L('vs', 'so với') + ' ' + topR.gb.toFixed(1) + '). ' + L('This is the biggest barrier, so address it first: ', 'Đây là rào cản lớn nhất, nên xử lý trước tiên: ') + FIX[top.id][currentLang === 'vi' ? 'vi' : 'en'] + '.';
+
+      html += '<div class="mt-4 rounded-xl border border-white/10 p-5">' +
+        '<div class="font-semibold">' + L('How to persuade the candidate', 'Gợi ý thuyết phục ứng viên') + '</div>' +
+        '<p class="text-sm text-gray-300 mt-3 leading-relaxed">' + topTxt + '</p>';
+
+      if(strengths.length){
+        html += '<div class="mt-5 text-xs font-mono uppercase tracking-wide" style="color:' + CA + '">' + L('Push hard on', 'Nhấn mạnh') + '</div><ul class="mt-2 space-y-2 text-sm text-gray-300">';
+        strengths.forEach(function(it){ html += line(it, { dot: CA, sign: '+', tail: '' }); });
+        html += '</ul><div class="mt-3 text-sm text-gray-400">' + L('How: ', 'Cách làm: ') + L(PITCH[strengths[0].g.id].en, PITCH[strengths[0].g.id].vi) + '</div>';
+      }
+      if(gaps.length){
+        html += '<div class="mt-5 text-xs font-mono uppercase tracking-wide text-red-400">' + L('Be ready to counter', 'Chuẩn bị xử lý') + '</div><ul class="mt-2 space-y-2 text-sm text-gray-300">';
+        gaps.forEach(function(it){ html += line(it, { dot: '#F87171', sign: '−', tail: L(FIX[it.g.id].en, FIX[it.g.id].vi) }); });
+        html += '</ul>';
+      }
+      html += '<div class="mt-5 text-sm text-gray-400 leading-relaxed">' + L(
+        'Close by repeating the 2–3 strongest points in the candidate\'s own priority order, then ask: "What would make you say yes today?"',
+        'Chốt bằng cách nhắc lại 2–3 điểm mạnh nhất theo đúng thứ tự ưu tiên của ứng viên, rồi hỏi: "Điều gì sẽ giúp anh/chị đồng ý ngay hôm nay?"') + '</div></div>';
+
+      box.innerHTML = html;
+    }
+
+    function recalc(){
+      if(!window.__engineReady) return;
+      renderResults(evaluate());
+    }
+
+    // ---------- wiring ----------
+    buildForm();
+    relabelOptions();
+    syncLangVisibility();
+
+    var formRoot = $('offer-tool');
+    formRoot.addEventListener('input', function(e){
+      var el = e.target;
+      if(el.classList && el.classList.contains('money-in')){
+        var r = el.value.replace(/[^0-9]/g, '');
+        el.value = r === '' ? '' : parseInt(r, 10).toLocaleString('en-US');
+      } else if(el.classList && el.classList.contains('dec-in')){
+        el.value = el.value.replace(/[^0-9.,]/g, '');
+      }
+      recalc();
+    });
+    formRoot.addEventListener('change', recalc);
+    formRoot.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.lk') : null;
+      if(!btn) return;
+      var wrap = btn.parentNode, n = btn.getAttribute('data-n');
+      var already = wrap.getAttribute('data-val') === n;
+      wrap.setAttribute('data-val', already ? '' : n);
+      wrap.querySelectorAll('.lk').forEach(function(b){
+        b.classList.toggle('on', !already && b.getAttribute('data-n') === n);
+      });
+      recalc();
+    });
+
+    window.__engineReady = true;
+    renderPriorityList();
+    recalc();
+
+    // keep generated content in sync with the EN/VI toggle
+    document.querySelectorAll('#btn-en, #btn-vi').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentLang = btn.id === 'btn-vi' ? 'vi' : 'en';
+        relabelOptions();
+        renderPriorityList();
+        recalc();
+      });
+    });
+
+    // expand / collapse experience details
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.acc-btn') : null;
+      if(!btn) return;
+      var body = btn.nextElementSibling;
+      if(!body || !body.classList.contains('acc-body')) return;
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      body.hidden = open;
+    });
+
+    // project image gallery + lightbox
+    document.addEventListener('click', function(e){
+      var lb = $('lightbox');
+      if(e.target.closest && e.target.closest('#lightbox')){ lb.hidden = true; return; }
+      var tab = e.target.closest ? e.target.closest('.gal-tab') : null;
+      if(tab){
+        var g = tab.closest('[data-gal]');
+        g.querySelectorAll('.gal-tab').forEach(function(b){ b.classList.toggle('on', b === tab); });
+        var im = g.querySelector('.gal-img');
+        im.src = tab.getAttribute('data-src'); im.alt = tab.getAttribute('data-alt');
+        return;
+      }
+      var main = e.target.closest ? e.target.closest('.gal-main') : null;
+      if(main){
+        var src = main.querySelector('img');
+        lb.querySelector('img').src = src.src; lb.querySelector('img').alt = src.alt;
+        lb.hidden = false;
+      }
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') $('lightbox').hidden = true; });
+  })();
+</script>
+
+</body></html>
